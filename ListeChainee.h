@@ -47,7 +47,7 @@ void ajouterRoutine(int longueurTab, ListeChaine liste);
  * 
  * @return int[] tabOcTotal 
  */
-int[] additionnerOccurence();
+int[] additionnerOccurence(ListeChaine liste);
 
 
 
