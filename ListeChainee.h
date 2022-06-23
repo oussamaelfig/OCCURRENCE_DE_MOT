@@ -9,7 +9,7 @@ typedef struct _routine *Routine;
 
 struct _routine
 {
-    int[] occurence;
+    int *occurence;
     Routine suivante;
 };
 
@@ -47,8 +47,6 @@ void ajouterRoutine(int longueurTab, ListeChaine liste);
  * 
  * @return int[] tabOcTotal 
  */
-int[] additionnerOccurence(ListeChaine liste);
-
-
+int *additionnerOccurence(ListeChaine liste);
 
 #endif

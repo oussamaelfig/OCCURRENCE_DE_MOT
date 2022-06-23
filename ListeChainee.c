@@ -7,13 +7,13 @@
  */
 ListeChaine creerListe()
 {
-    ListeChaine nouvListe = malloc(sizeof(ListeChaine));
+    ListeChaine nouvListe = malloc(sizeof(struct _listeChaine));
     nouvListe->initiale = NULL;
     return nouvListe;
 }
 
 Routine creerRoutine(int longeur){
-    Routine r = malloc(sizeof(Routine));
+    Routine r = malloc(sizeof(struct _routine));
     r->suivante = NULL;
     r->occurence = malloc(longeur * sizeof(int));
     return r;
@@ -26,14 +26,14 @@ Routine creerRoutine(int longeur){
  */
 void detruireListe(ListeChaine *liste)
 {
-    long adresse = 0;
+    Routine adresse = NULL;
     while ((**liste).initiale != NULL)
     {
-        c = (**liste).initiale;
+        adresse = (**liste).initiale;
         free((**liste).initiale->suivante);
         (**liste).initiale->suivante = NULL;
         (**liste).initiale = (**liste).initiale->suivante;
-        free(c);
+        free(adresse);
     }
     free(*liste);
     *liste = NULL;
@@ -71,7 +71,7 @@ void ajouterRoutine(int longueurTab, ListeChaine liste)
  * 
  * @return int[] tabOcTotal 
  */
-int[] additionnerOccurence(ListeChaine liste)
+int * additionnerOccurence(ListeChaine liste)
 {
-    int resultat
+    return NULL;
 }
