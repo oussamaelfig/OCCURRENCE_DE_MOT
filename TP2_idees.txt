@@ -1,0 +1,21 @@
+Idées TP2 3135
+
+Pour compter nb d’occurence par routine: créer une struct qui a comme attribut : un tab de int (cpt d’occurence) et un tab de string (les mots a trouver)
+
+
+-> taille tableau de mots? --> tab avec taille non définie (pas super par contre) et cpt qu'on incrémente à chaque mots. Après le EOF, la taille est stockée dans la dernière case du tableau.
+-> Même idée pour le tableau de struct selon le nombre de routine
+
+
+-> pour savoir si '}' est fin de routine et pas d'une routine intérieur, une variable qui est incrémenté quand on rencontre un '{' dans une routine et quand on rencontre un '}' si le cpt n'est pas à 0, on continue et décrémente le cpt. Sinon, c'est la fin de notre routine
+
+
+Pour connaitre taille de mots 
+->1ere idée: parcourir chaque lettre et incrémenter un cpt, malloc avec ce cpt et après reparcourir pour stocker dans ce string? Pas efficace par contre…
+
+-> 2e idée: Avoir une deuxième var a taille fixe dont la taille est connue, quand la taille est égale à celle fixe, on dompte dans la vrai variable, reset le cpt et on continue jusqu’à la taille soit encore égale ou que le mot/string termine. —> besoin de deux cpt.
+
+
+
+Pour ignorer commentaire/"/'///, des qu'on rencontre ça, incrémenté cpt jusqu'à char=='/"/*///\n
+
