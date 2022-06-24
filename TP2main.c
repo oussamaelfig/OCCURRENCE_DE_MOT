@@ -112,6 +112,9 @@ void detruireChaine(char *tM[], int longueur)
     }
 }
 
+
+// *************************************************************************************************************************
+// *************************************************************************************************************************
 // Methode qui sert à demander l'utilisateur d'entrer le texte puis elle store
 // le nombre de caractere dans la variable globale TAILLETexte
 char *inputString(FILE *fp, size_t size)
@@ -137,6 +140,47 @@ char *inputString(FILE *fp, size_t size)
     // printf("\n\n\nLa taille du texte entré est : %i", TAILLETXT);
     return realloc(str, sizeof(*str) * len);
 }
+
+/* Methode qui sert à trouver le nombre d'occurence d'un mot dans une chaine
+*  const char *textEntree = "  while()().while()\n while  while";
+*  const char *mot_a_trouver = "while";
+*  le nombre d'occurence dans cet exemple sera 4
+*/
+int countWordOccurence(const char *textEntree, const char *mot_a_trouver)
+{
+    const char *p = textEntree;
+    int trouve = 0;
+
+    for (; p != NULL;)
+    {
+        p = strstr(p, mot_a_trouver);
+        
+        // Si le caractere n'est pas null et n'est pas alphabetic
+        if ((p != NULL) && ((p == textEntree) || (!((unsigned char)p[-1] >= 65 && (unsigned char)p[-1] <= 90) &&
+                                                  !((unsigned char)p[-1] >= 97 && (unsigned char)p[-1] <= 122))))
+        {
+            //on skip le mot trouvé puis on passe au caractere venat juste après
+            //while()().while()\n while  while ==> ()().while()\n while  while
+            p += strlen(mot_a_trouver);
+
+            // Si le caractere n'est pas alphapetic
+            if ((!((unsigned char)*p >= 65 && (unsigned char)*p <= 90) &&
+                 !((unsigned char)*p >= 97 && (unsigned char)*p <= 122)))
+            {
+                trouve = trouve + 1;
+            }
+            else
+            {
+                // une sous-chaîne a été trouvée, mais aucun mot ne correspond, déplacez-vous d'un caractère et réessayez
+                p += 1;
+            }
+        }
+    }
+    return trouve;
+}
+
+// ****************************************************************************************************************************
+// ****************************************************************************************************************************
 
 int main(int argc, char const *argv[])
 {
@@ -184,7 +228,9 @@ int main(int argc, char const *argv[])
     fclose(file);
 
     // ******************************************************************
+    // ******************************************************************
     // Cette partie dépend de la méthode (inputString)
+    // Sert à tester la methode inputString
     char *m;
     int tailleText;
 
@@ -198,6 +244,16 @@ int main(int argc, char const *argv[])
 
     free(m);
 
+
+    //Cette partie dépend de la methode (countWordOccurence)
+    //Sert à tester la methode countWordOccurence
+
+    int count = 0;
+    const char *textEntree = "  while()().while()\n while  while";
+    const char *mot_a_trouver = "while";
+    count = countWordOccurence(textEntree, mot_a_trouver);
+    printf("nbr occurence %i", count);
+    //*******************************************************************
     //*******************************************************************
 
     return 0;
