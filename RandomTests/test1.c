@@ -40,7 +40,7 @@ int main(void)
     printf("input string : ");
     m = inputString(stdin, 10);
     // printf("%s\n", m);
-    printf("\n\n\nla taille est : %i", strlen(m));
+    printf("\n\n\nla taille est : %i", strlen(m)-1);
 
     free(m);
     return 0;

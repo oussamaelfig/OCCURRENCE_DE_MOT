@@ -186,13 +186,15 @@ int main(int argc, char const *argv[])
     // ******************************************************************
     // Cette partie dépend de la méthode (inputString)
     char *m;
+    int tailleText;
 
     printf("input string : ");
     m = inputString(stdin, 10);
     // printf("%s\n", m);
     // Taille du texte entré par l'utilisateur : exemple:
-    // Allo\nBonjour\0       ==>     13
-    printf("\n\n\nla taille est : %i", strlen(m));
+    // Allo\nBonjour\0(CTRL D)       ==>     13     NB: je compte pas le (CTRL D)
+    tailleText=strlen(m)-1;
+    printf("\n\n\nla taille est : %i", tailleText);
 
     free(m);
 
