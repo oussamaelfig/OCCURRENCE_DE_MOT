@@ -1,57 +1,50 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <math.h>
+#include <stdbool.h>
 
-
-//Taille du texte entré par l'utilisateur : exemple:
-//Allo\nBonjour\0       ==>     13
+// Taille du texte entré par l'utilisateur : exemple:
+// Allo\nBonjour\0       ==>     13
 int TAILLETXT;
 
-char *inputString(FILE* fp, size_t size){
-//The size is extended by the input with the value of the provisional
+char *inputString(FILE *fp, size_t size)
+{
+    // The size is extended by the input with the value of the provisional
     char *str;
     int ch;
     size_t len = 0;
-    str = realloc(NULL, sizeof(*str)*size);//size is start size
-    if(!str)return str;
-    while(EOF!=(ch=fgetc(fp)) && ch != EOF){
-        str[len++]=ch;
-        if(len==size){
-            str = realloc(str, sizeof(*str)*(size+=16));
-            if(!str)return str;
+    str = realloc(NULL, sizeof(*str) * size); // size is start size
+    if (!str)
+        return str;
+    while (EOF != (ch = fgetc(fp)) && ch != EOF)
+    {
+        str[len++] = ch;
+        if (len == size)
+        {
+            str = realloc(str, sizeof(*str) * (size += 16));
+            if (!str)
+                return str;
         }
     }
-    str[len++]='\0';
-    TAILLETXT=len;
+    str[len++] = '\0';
+    TAILLETXT = len;
     printf("\n\n\nLa taille du texte entré est : %i", TAILLETXT);
-    return realloc(str, sizeof(*str)*len);
+    return realloc(str, sizeof(*str) * len);
 }
 
-int main(void){
+int main(void)
+{
     char *m;
 
     printf("input string : ");
     m = inputString(stdin, 10);
-    //printf("%s\n", m);
+    // printf("%s\n", m);
+    printf("\n\n\nla taille est : %i", strlen(m));
 
     free(m);
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // #include <stdio.h>
 // #include <stdlib.h>
