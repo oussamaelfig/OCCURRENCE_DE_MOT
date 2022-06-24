@@ -116,7 +116,7 @@ void detruireChaine(char *tM[], int longueur)
 // le nombre de caractere dans la variable globale TAILLETexte
 char *inputString(FILE *fp, size_t size)
 {
-    // The size is extended by the input with the value of the provisional
+    //La taille est étendue par l'entrée avec la valeur du provisoire
     char *str;
     int ch;
     size_t len = 0;
