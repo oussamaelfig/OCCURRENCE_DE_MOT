@@ -19,3 +19,46 @@ Pour connaitre taille de mots
 
 Pour ignorer commentaire/"/'///, des qu'on rencontre ça, incrémenté cpt jusqu'à char=='/"/*///\n
 
+----------------------------------------------------------------------
+
+lire les mots du fichier d'entrer (presque done) stocker les dans des variables
+a1= while
+
+Commencer à lire le stdin peut etre scanf, stocker qlq part dans un tableau ()
+ (Essayer de trouver la taille de stdin)
+
+
+comparer caractere par caractere de a1 avec le stdin puis jusqu'à ce qu'on rencontre un blanc ou un caractere qui n'est pas une lettre
+
+
+creer une structure qui represente une routine
+tableau de int= nb occurence par routine [while, for, go to] ==> [2,... ]
+pointeur de routine
+depend de l'ordre ou les mots on etet donnees
+
+
+
+-> pour savoir si '}' est fin de routine et pas d'une routine intérieur, une variable qui est incrémenté quand on rencontre un '{' dans une routine et quand on rencontre un '}' si le cpt n'est pas à 0, on continue et décrémente le cpt. Sinon, c'est la fin de notre routine
+
+
+quand on rencointre la premiere acollade
+on cree une structure qui va trouver le nombre d'occurrence dans cette routine
+par defaut le pointeur est nul (au depart) apres on pointera vers des routines
+
+[3,2,0] --> [0,5,1] ---> [0,0,1] --> ...
+
+
+à l'affichage on parcour notre liste chainée puis afficher les occurences
+on aprcour pour additionner les valeurs au meme indices
+
+
+
+Pour ignorer commentaire/"/'///, des qu'on rencontre ça, incrémenté cpt jusqu'à char=='/"/*///\n
+
+
+
+
+
+
+
+
