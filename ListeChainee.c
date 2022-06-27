@@ -1,6 +1,5 @@
 #include "ListeChainee.h"
 
-
 /**
  * Construit une liste chainée vide et la retourne.
  * @return ListeChaine newListe (liste vide)
@@ -12,16 +11,18 @@ ListeChaine creerListe()
     return nouvListe;
 }
 
-Routine creerRoutine(int longeur){
+Routine creerRoutine(int longeur)
+{
     Routine r = malloc(sizeof(struct _routine));
     r->suivante = NULL;
     r->occurence = malloc(longeur * sizeof(int));
+    r->occurence[0] = longeur;
     return r;
 }
 
 /**
  * Détruit une liste chainée passée en argument
- * 
+ *
  * @param liste a détruire
  */
 void detruireListe(ListeChaine *liste)
@@ -40,20 +41,21 @@ void detruireListe(ListeChaine *liste)
 }
 
 /**
- * Ajoute une routine a notre liste chainee en parcourant 
+ * Ajoute une routine a notre liste chainee en parcourant
  * chaque routine jusqu'à "routine.suivante" == NULL
- * 
+ *
  * @param longueurTab pour créer une bonne longueur de tab d'occurence
  */
 void ajouterRoutine(int longueurTab, ListeChaine liste)
 {
-    //adresse de la prochaine routine
+    // adresse de la prochaine routine
     Routine c = liste->initiale;
     Routine bufferAd = NULL;
     if (c == NULL)
     {
         liste->initiale = creerRoutine(longueurTab);
-    }else
+    }
+    else
     {
         while (c != NULL)
         {
@@ -68,10 +70,28 @@ void ajouterRoutine(int longueurTab, ListeChaine liste)
  * Additionne chaque case du tab d'occurence de chaque routine de la chaine.
  * Place les résultats de chaque addition dans la case correspondate dans un tab d'occurences totale
  * de chaque mot
- * 
- * @return int[] tabOcTotal 
+ * Si la liste est vide -> retourne NULL
+ * @return int[] somme
  */
-int * additionnerOccurence(ListeChaine liste)
+int *additionnerOccurence(ListeChaine liste)
 {
-    return NULL;
+    Routine buffer = liste->initiale;
+    int *somme;
+    if (buffer != NULL)
+    {
+        somme = malloc(buffer->occurence[0] * sizeof(int));
+        int i = 0;
+        while (buffer->suivante != NULL)
+        {
+            for (i = 0; i < buffer->occurence[0]; i++)
+            {
+                somme[i] += buffer->occurence[i];
+            }
+        }
+    }else
+    {
+        somme = NULL;
+    }
+
+    return somme;
 }
