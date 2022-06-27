@@ -16,7 +16,6 @@ Routine creerRoutine(int longeur)
     Routine r = malloc(sizeof(struct _routine));
     r->suivante = NULL;
     r->occurence = malloc(longeur * sizeof(int));
-    r->occurence[0] = longeur;
     return r;
 }
 
@@ -62,7 +61,7 @@ void ajouterRoutine(int longueurTab, ListeChaine liste)
             bufferAd = c;
             c = c->suivante;
         }
-        bufferAd->suivante = liste->initiale = creerRoutine(longueurTab);
+        bufferAd->suivante  = creerRoutine(longueurTab);
     }
 }
 
@@ -73,19 +72,19 @@ void ajouterRoutine(int longueurTab, ListeChaine liste)
  * Si la liste est vide -> retourne NULL
  * @return int[] somme
  */
-int *additionnerOccurence(ListeChaine liste)
+int *additionnerOccurence(ListeChaine liste, int longueur)
 {
     Routine buffer = liste->initiale;
     int *somme;
     if (buffer != NULL)
     {
-        somme = malloc(buffer->occurence[0] * sizeof(int));
+        somme = malloc(longueur * sizeof(int));
         int i = 0;
         while (buffer->suivante != NULL)
         {
-            for (i = 0; i < buffer->occurence[0]; i++)
+            for (i = 0; i < longueur; i++)
             {
-                somme[i] += buffer->occurence[i];
+                somme[i] += longueur;
             }
         }
     }else
@@ -94,4 +93,43 @@ int *additionnerOccurence(ListeChaine liste)
     }
 
     return somme;
+}
+
+/**
+ * Methode qui retourne la dernière Routine ajoutee a la liste chainee.
+ * 
+ * @param liste ListeChainee a analyser
+ * @return Routine L'adresse de la derniere Routine de la liste
+ */
+Routine retournerDerniereRoutine(ListeChaine liste)
+{
+    Routine r = NULL;
+    if(liste->initiale != NULL)
+    {
+        r = liste->initiale;
+        while (r->suivante != NULL)
+        {
+            r = r->suivante;
+        }
+    }
+    return r;
+}
+
+
+/**
+ * Fonction qui retourne la taille d'une liste chainee (le nombre de routine qu'elle contient)
+ * 
+ * @param liste ListeChainee a analiser
+ * @return int taille de la liste
+ */
+int trouverTailleListe(ListeChaine liste)
+{
+    Routine r = liste->initiale;
+    int taille = 0;
+    while (r != NULL)
+    {
+        ++taille;
+        r = r->suivante;
+    }
+    return taille;
 }

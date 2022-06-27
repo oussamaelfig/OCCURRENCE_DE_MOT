@@ -9,6 +9,7 @@
 #include <string.h>
 #include <math.h>
 #include <stdbool.h>
+#include "ListeChainee.h"
 #define DEBUG
 
 int estLettre(char c)
@@ -57,16 +58,14 @@ int analyserMots(char *buffer, char *tM[], int indice)
         {
             tM[indice] = malloc(longBuffer * sizeof(char));
             tM[indice][j] = buffer[i];
-            // printf("succes!\n");
-            // printf("%i\n", indice);
-            while (i < longBuffer - 1 && !charEstValide(buffer[i]) && !estEspaceBlanc(buffer[i]))
+            while (i < longBuffer && !charEstValide(buffer[i]) && !estEspaceBlanc(buffer[i]))
             {
-                // printf("%c\n", tM[indice][j]);
                 ++i;
                 ++j;
                 tM[indice][j] = buffer[i];
             }
             tM[indice][j] = 0;
+            ++indice;
         }
         else if (!estEspaceBlanc(buffer[i]) && buffer[i] != 0)
         {
@@ -75,6 +74,9 @@ int analyserMots(char *buffer, char *tM[], int indice)
         }
         j = 0;
         ++i;
+    }
+    if(indice == 0)
+    {
         ++indice;
     }
     return indice;
@@ -222,10 +224,12 @@ int trouverAccoFerm(const char *textEntree, int openPos)
     return closePos;
 }
 
+
+
 //Fonction qui permet d'extraire la chaine entre l'accolade ouvrante et fermante
 // "  while{afk{}lgmsla{asg;as,gd;}dsvadv{}}{dlfmasg}.while()\n while  while"
 // "{afk{}lgmsla{asg;as,gd;}dsvadv{}" ça retourne la chaine entre accolade sauf que ça retounre pas la derniere accolade, ça ne cree aucun probleme
-char *findMatchingBraces(const char *textEntree)
+char *findMatchingBraces(char *textEntree)
 {
     int premiereAccol;
     int derniereAccol;
@@ -235,14 +239,53 @@ char *findMatchingBraces(const char *textEntree)
     char key[] = "{";
     //Trouver la position de la premiere accolade avec la methode strcspn
     premiereAccol = strcspn(p, key);
-    //printf("The first number in str is at position %d.\n", premiereAccol); //DEBUG
+    // printf("The first number in str is at position %d.\n", premiereAccol); //DEBUG
     derniereAccol = trouverAccoFerm(p, premiereAccol);
-    //La taille de la chaine à extraire est :
+    // La taille de la chaine à extraire est :
     len = derniereAccol - premiereAccol;
     char *destination = malloc(sizeof(char) * len);
     substring(destination, p, premiereAccol, derniereAccol - premiereAccol);
     destination[len++] = '\0';
     return destination;
+}
+
+
+
+ListeChaine trouverOccurenceRoutine( char * texteEntree, char *tabMots[], int longeurTabMot)
+{
+    ListeChaine liste = creerListe();
+    printf("test1\n");
+
+    char *chaineRoutine = findMatchingBraces(texteEntree);
+    printf("test2\n");
+
+    int cpt;
+    int somme = 0;
+    int longueur = strcspn(texteEntree, "{");
+    Routine routine = NULL;
+    while (strlen(chaineRoutine) > 0)
+    {
+        printf("test3\n");
+        printf("%s\n", chaineRoutine);
+        cpt = 0;
+        longueur += strlen(chaineRoutine);
+        ajouterRoutine(longeurTabMot, liste);
+
+        while (cpt < longeurTabMot)
+        {
+
+            routine = retournerDerniereRoutine(liste);
+
+            routine->occurence[cpt] = countWordOccurence(chaineRoutine, tabMots[cpt]);
+            ++cpt;
+        }
+
+        free(chaineRoutine);
+        chaineRoutine = NULL;
+        chaineRoutine = findMatchingBraces(texteEntree + longueur);
+    }
+
+    return liste;
 }
 
 // ****************************************************************************************************************************
@@ -290,8 +333,9 @@ int main(int argc, char const *argv[])
     // detruireChaine(tabMots, longBuffer);
     free(buffer);
     buffer = NULL;
-
     fclose(file);
+
+
 
     // ******************************************************************
     // ******************************************************************
@@ -300,24 +344,24 @@ int main(int argc, char const *argv[])
     char *m;
     int tailleText;
 
-    printf("input string : ");
+    //printf("input string : ");
     m = inputString(stdin, 10);
-    // printf("%s\n", m);
+    //printf("%s\n", m);
     // Taille du texte entré par l'utilisateur : exemple:
     // Allo\nBonjour\0(CTRL D)       ==>     13     NB: je compte pas le (CTRL D)
     tailleText = strlen(m) - 1;
-    printf("\n\n\nla taille est : %i", tailleText);
+    //printf("\n\n\nla taille est : %i", tailleText);
 
-    free(m);
+    //free(m);
 
     // Cette partie dépend de la methode (countWordOccurence)
     // Sert à tester la methode countWordOccurence
 
     int count = 0;
-    const char *textEntree = "  while()().while()\n while  while";
-    const char *mot_a_trouver = "while";
-    count = countWordOccurence(textEntree, mot_a_trouver);
-    printf("nbr occurence %i", count);
+    //const char *textEntree = "  while()().while()\n while  while";
+    //const char *mot_a_trouver = "while";
+    //count = countWordOccurence(textEntree, mot_a_trouver);
+    //printf("nbr occurence %i", count);
 
 
 
@@ -325,10 +369,28 @@ int main(int argc, char const *argv[])
     // Cette partie dépend de la methode (findMatchingBraces)
     // Sert à tester la methode findMatchingBraces
 
-    const char *textEntree = "  while{afk{}lgmsla{asg;as,gd;}dsvadv{}}{dlfmasg}.while()\n while  while";
-    char *v = findMatchingBraces(textEntree);
-    printf("la chaine retounrnée est : %s", v);
-    free(v);
+    char *textEntree = "  while{afk{}lgmsla{asg;as,gd;}dsvadv{}}{dlfmasg}.while()\n while  while";
+    //char *t;
+    //strcpy(t, textEntree);
+    // test de la fonction trouver occurence routine
+    ListeChaine listeChaine = trouverOccurenceRoutine(textEntree, tabMots, tailleTabMots);
+    
+    Routine r = listeChaine->initiale;
+    while (r != NULL)
+    {
+        for (size_t i = 0; i < tailleTabMots; i++)
+        {
+            printf("{\n");
+            printf("  %s : %i\n", tabMots[i], r->occurence[i]);
+            printf("}\n");
+            printf("\n");
+        }
+        r = r->suivante;
+    }
+
+    //char *v = findMatchingBraces(textEntree);
+   // printf("la chaine retounrnée est : %s", v);
+   // free(v);
     //*******************************************************************
     //*******************************************************************
 

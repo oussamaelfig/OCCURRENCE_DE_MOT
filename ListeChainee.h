@@ -9,8 +9,8 @@ typedef struct _routine *Routine;
 
 struct _routine
 {
-    int *occurence;
     Routine suivante;
+    int *occurence;
 };
 
 struct _listeChaine
@@ -47,6 +47,23 @@ void ajouterRoutine(int longueurTab, ListeChaine liste);
  * 
  * @return int[] tabOcTotal 
  */
-int *additionnerOccurence(ListeChaine liste);
+int *additionnerOccurence(ListeChaine liste, int longueur);
+
+
+/**
+ * Methode qui retourne la dernière Routine ajoutee a la liste chainee.
+ * 
+ * @param liste ListeChainee a analyser
+ * @return Routine L'adresse de la derniere Routine de la liste
+ */
+Routine retournerDerniereRoutine(ListeChaine liste);
+
+/**
+ * Fonction qui retourne la taille d'une liste chainee (le nombre de routine qu'elle contient)
+ * 
+ * @param liste ListeChainee a analiser
+ * @return int taille de la liste
+ */
+int trouverTailleListe(ListeChaine liste);
 
 #endif
