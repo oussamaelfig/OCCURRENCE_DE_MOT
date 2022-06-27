@@ -378,13 +378,15 @@ int main(int argc, char const *argv[])
     Routine r = listeChaine->initiale;
     while (r != NULL)
     {
+        printf("{\n");
         for (size_t i = 0; i < tailleTabMots; i++)
         {
-            printf("{\n");
+            
             printf("  %s : %i\n", tabMots[i], r->occurence[i]);
-            printf("}\n");
-            printf("\n");
+            
         }
+        printf("}\n");
+        printf("\n");
         r = r->suivante;
     }
 
