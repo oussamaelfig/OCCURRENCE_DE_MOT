@@ -1,3 +1,9 @@
+/*
+ * TP2 INF3135 : OCCURRENCE DE MOT
+ * Author: OUSSAMA EL-FIGHA
+ * Author: NICOLAS PLANTE
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -112,14 +118,13 @@ void detruireChaine(char *tM[], int longueur)
     }
 }
 
-
 // *************************************************************************************************************************
 // *************************************************************************************************************************
 // Methode qui sert à demander l'utilisateur d'entrer le texte puis elle store
 // le nombre de caractere dans la variable globale TAILLETexte
 char *inputString(FILE *fp, size_t size)
 {
-    //La taille est étendue par l'entrée avec la valeur du provisoire
+    // La taille est étendue par l'entrée avec la valeur du provisoire
     char *str;
     int ch;
     size_t len = 0;
@@ -142,10 +147,10 @@ char *inputString(FILE *fp, size_t size)
 }
 
 /* Methode qui sert à trouver le nombre d'occurence d'un mot dans une chaine
-*  const char *textEntree = "  while()().while()\n while  while";
-*  const char *mot_a_trouver = "while";
-*  le nombre d'occurence dans cet exemple sera 4
-*/
+ *  const char *textEntree = "  while()().while()\n while  while";
+ *  const char *mot_a_trouver = "while";
+ *  le nombre d'occurence dans cet exemple sera 4
+ */
 int countWordOccurence(const char *textEntree, const char *mot_a_trouver)
 {
     const char *p = textEntree;
@@ -154,13 +159,13 @@ int countWordOccurence(const char *textEntree, const char *mot_a_trouver)
     for (; p != NULL;)
     {
         p = strstr(p, mot_a_trouver);
-        
+
         // Si le caractere n'est pas null et n'est pas alphabetic
         if ((p != NULL) && ((p == textEntree) || (!((unsigned char)p[-1] >= 65 && (unsigned char)p[-1] <= 90) &&
                                                   !((unsigned char)p[-1] >= 97 && (unsigned char)p[-1] <= 122))))
         {
-            //on skip le mot trouvé puis on passe au caractere venat juste après
-            //while()().while()\n while  while ==> ()().while()\n while  while
+            // on skip le mot trouvé puis on passe au caractere venat juste après
+            // while()().while()\n while  while ==> ()().while()\n while  while
             p += strlen(mot_a_trouver);
 
             // Si le caractere n'est pas alphapetic
@@ -177,6 +182,67 @@ int countWordOccurence(const char *textEntree, const char *mot_a_trouver)
         }
     }
     return trouve;
+}
+
+// Fonction qui implémente un substring sur C
+char *substring(char *destination, const char *source, int debut, int n)
+{
+    // copier `n` caractères de la chaîne source à partir de
+    // `debut` index dans la destination
+    strncpy(destination, (source + debut), n);
+
+    // return tla chaine destination
+    return destination;
+}
+
+
+//Fonction pour trouver les postion de l'accolade fermantes
+//Étant donné la position d'une parenthèse ouverte
+// dans un tableau de caractères, l'algorithme
+// utilise un compteur pour trouver
+// l'accolade fermante correspondante.
+int trouverAccoFerm(const char *textEntree, int openPos)
+{
+    int closePos = openPos;
+    int Compteur = 1;
+    while (Compteur > 0)
+    {
+        char c = textEntree[++closePos];
+        if (c == '{')
+        {
+            Compteur++;
+        }
+        else if (c == '}')
+        {
+            Compteur--;
+        }
+        // Lorsque le compteur atteint zéro,
+        //  vous avez trouvé la parenthèse fermante correspondante.
+    }
+    return closePos;
+}
+
+//Fonction qui permet d'extraire la chaine entre l'accolade ouvrante et fermante
+// "  while{afk{}lgmsla{asg;as,gd;}dsvadv{}}{dlfmasg}.while()\n while  while"
+// "{afk{}lgmsla{asg;as,gd;}dsvadv{}" ça retourne la chaine entre accolade sauf que ça retounre pas la derniere accolade, ça ne cree aucun probleme
+char *findMatchingBraces(const char *textEntree)
+{
+    int premiereAccol;
+    int derniereAccol;
+    int len;
+    const char *p = textEntree;
+    //Le caractere qu'on veut trouver
+    char key[] = "{";
+    //Trouver la position de la premiere accolade avec la methode strcspn
+    premiereAccol = strcspn(p, key);
+    //printf("The first number in str is at position %d.\n", premiereAccol); //DEBUG
+    derniereAccol = trouverAccoFerm(p, premiereAccol);
+    //La taille de la chaine à extraire est :
+    len = derniereAccol - premiereAccol;
+    char *destination = malloc(sizeof(char) * len);
+    substring(destination, p, premiereAccol, derniereAccol - premiereAccol);
+    destination[len++] = '\0';
+    return destination;
 }
 
 // ****************************************************************************************************************************
@@ -239,20 +305,30 @@ int main(int argc, char const *argv[])
     // printf("%s\n", m);
     // Taille du texte entré par l'utilisateur : exemple:
     // Allo\nBonjour\0(CTRL D)       ==>     13     NB: je compte pas le (CTRL D)
-    tailleText=strlen(m)-1;
+    tailleText = strlen(m) - 1;
     printf("\n\n\nla taille est : %i", tailleText);
 
     free(m);
 
-
-    //Cette partie dépend de la methode (countWordOccurence)
-    //Sert à tester la methode countWordOccurence
+    // Cette partie dépend de la methode (countWordOccurence)
+    // Sert à tester la methode countWordOccurence
 
     int count = 0;
     const char *textEntree = "  while()().while()\n while  while";
     const char *mot_a_trouver = "while";
     count = countWordOccurence(textEntree, mot_a_trouver);
     printf("nbr occurence %i", count);
+
+
+
+
+    // Cette partie dépend de la methode (findMatchingBraces)
+    // Sert à tester la methode findMatchingBraces
+
+    const char *textEntree = "  while{afk{}lgmsla{asg;as,gd;}dsvadv{}}{dlfmasg}.while()\n while  while";
+    char *v = findMatchingBraces(textEntree);
+    printf("la chaine retounrnée est : %s", v);
+    free(v);
     //*******************************************************************
     //*******************************************************************
 
