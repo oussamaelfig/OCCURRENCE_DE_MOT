@@ -203,12 +203,13 @@ char *substring(char *destination, const char *source, int debut, int n)
 // dans un tableau de caractères, l'algorithme
 // utilise un compteur pour trouver
 // l'accolade fermante correspondante.
-int trouverAccoFerm(const char *textEntree, int openPos)
+int trouverAccoFerm(const char *textEntree, int openPos, int *cpt)
 {
     int closePos = openPos;
     int Compteur = 1;
-    while (Compteur > 0)
+    while (Compteur > 0 && closePos <= strlen(textEntree))
     {
+        printf("compteur accolade: %i\n", Compteur);
         char c = textEntree[++closePos];
         if (c == '{')
         {
@@ -221,6 +222,7 @@ int trouverAccoFerm(const char *textEntree, int openPos)
         // Lorsque le compteur atteint zéro,
         //  vous avez trouvé la parenthèse fermante correspondante.
     }
+    *cpt += closePos;
     return closePos;
 }
 
@@ -229,23 +231,27 @@ int trouverAccoFerm(const char *textEntree, int openPos)
 //Fonction qui permet d'extraire la chaine entre l'accolade ouvrante et fermante
 // "  while{afk{}lgmsla{asg;as,gd;}dsvadv{}}{dlfmasg}.while()\n while  while"
 // "{afk{}lgmsla{asg;as,gd;}dsvadv{}" ça retourne la chaine entre accolade sauf que ça retounre pas la derniere accolade, ça ne cree aucun probleme
-char *findMatchingBraces(char *textEntree)
+char *findMatchingBraces(char *textEntree, int *cpt)
 {
     int premiereAccol;
     int derniereAccol;
     int len;
     const char *p = textEntree;
-    //Le caractere qu'on veut trouver
+    printf("Le texte que finMatching recoit est: %s\n", p);
+    // Le caractere qu'on veut trouver
     char key[] = "{";
     //Trouver la position de la premiere accolade avec la methode strcspn
     premiereAccol = strcspn(p, key);
+    
+    //*cpt += premiereAccol;
     // printf("The first number in str is at position %d.\n", premiereAccol); //DEBUG
-    derniereAccol = trouverAccoFerm(p, premiereAccol);
+    derniereAccol = trouverAccoFerm(p, premiereAccol, cpt);
     // La taille de la chaine à extraire est :
     len = derniereAccol - premiereAccol;
-    char *destination = malloc(sizeof(char) * len);
-    substring(destination, p, premiereAccol, derniereAccol - premiereAccol);
-    destination[len++] = '\0';
+    char *destination = malloc(sizeof(char) * len );
+    printf("Le cpt: %i, p : %s\n", *cpt, p);
+    substring(destination, p, premiereAccol, len + 1);
+    destination[len + 2] = '\0';
     return destination;
 }
 
@@ -253,36 +259,36 @@ char *findMatchingBraces(char *textEntree)
 
 ListeChaine trouverOccurenceRoutine( char * texteEntree, char *tabMots[], int longeurTabMot)
 {
+    int compteur = 0;
     ListeChaine liste = creerListe();
     printf("test1\n");
 
-    char *chaineRoutine = findMatchingBraces(texteEntree);
+    char *chaineRoutine = findMatchingBraces(texteEntree, &compteur);
     printf("test2\n");
 
     int cpt;
     int somme = 0;
     int longueur = strcspn(texteEntree, "{");
     Routine routine = NULL;
-    while (strlen(chaineRoutine) > 0)
+    while (strlen(chaineRoutine) > 1)
     {
         printf("test3\n");
-        printf("%s\n", chaineRoutine);
+        printf("Chaine sortie: %s\n", chaineRoutine);
         cpt = 0;
         longueur += strlen(chaineRoutine);
         ajouterRoutine(longeurTabMot, liste);
 
         while (cpt < longeurTabMot)
         {
-
             routine = retournerDerniereRoutine(liste);
-
             routine->occurence[cpt] = countWordOccurence(chaineRoutine, tabMots[cpt]);
             ++cpt;
         }
-
+        printf("Actuel : %i , Max :%i\n", longueur + texteEntree, texteEntree + strlen(texteEntree));
         free(chaineRoutine);
         chaineRoutine = NULL;
-        chaineRoutine = findMatchingBraces(texteEntree + longueur);
+        chaineRoutine = findMatchingBraces(texteEntree + compteur,&compteur);
+        printf("succes\n");
     }
 
     return liste;
@@ -373,7 +379,7 @@ int main(int argc, char const *argv[])
     //char *t;
     //strcpy(t, textEntree);
     // test de la fonction trouver occurence routine
-    ListeChaine listeChaine = trouverOccurenceRoutine(textEntree, tabMots, tailleTabMots);
+    ListeChaine listeChaine = trouverOccurenceRoutine(m, tabMots, tailleTabMots);
     
     Routine r = listeChaine->initiale;
     while (r != NULL)
