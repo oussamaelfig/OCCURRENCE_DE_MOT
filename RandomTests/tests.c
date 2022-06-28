@@ -77,13 +77,13 @@ int countWordOccurence(const char *textEntree, const char *mot_a_trouver)
     for (; p != NULL;)
     {
         p = strstr(p, mot_a_trouver);
-        
+
         // Si le caractere n'est pas null et n'est pas alphabetic
         if ((p != NULL) && ((p == textEntree) || (!((unsigned char)p[-1] >= 65 && (unsigned char)p[-1] <= 90) &&
                                                   !((unsigned char)p[-1] >= 97 && (unsigned char)p[-1] <= 122))))
         {
-            //on skip le mot trouvé puis on passe au caractere venat juste après
-            //while()().while()\n while  while ==> ()().while()\n while  while
+            // on skip le mot trouvé puis on passe au caractere venat juste après
+            // while()().while()\n while  while ==> ()().while()\n while  while
             p += strlen(mot_a_trouver);
 
             // Si le caractere n'est pas alphapetic

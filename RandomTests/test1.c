@@ -86,16 +86,13 @@
 //     return 0;
 // }
 
-
-
-
 // *************************************************************************************************************************
 // *************************************************************************************************************************
 // Methode qui sert à demander l'utilisateur d'entrer le texte puis elle store
 // le nombre de caractere dans la variable globale TAILLETexte
 char *inputString(FILE *fp, size_t size)
 {
-    //La taille est étendue par l'entrée avec la valeur du provisoire
+    // La taille est étendue par l'entrée avec la valeur du provisoire
     char *str;
     int ch;
     size_t len = 0;
@@ -117,13 +114,10 @@ char *inputString(FILE *fp, size_t size)
     return realloc(str, sizeof(*str) * len);
 }
 
-
-
-
 int count_braces(const char *s)
 {
     int n = 0;
-    while (*s!=NULL)
+    while (*s != NULL)
     {
         if (*s == '{')
             ++n;
@@ -153,10 +147,11 @@ int main(int argc, char const *argv[])
     // tailleText=strlen(m)-1;
     // printf("\n\n\nla taille est : %i", tailleText);
 
-    numberOfBlocks=count_braces(greeting);
+    numberOfBlocks = count_braces(greeting);
     printf("nmbr of blcoks : %i", numberOfBlocks);
 
-  //  free(m); 
-    
+    //  free(m);
+
     return 0;
 }
+
