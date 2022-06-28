@@ -373,7 +373,7 @@ int main(int argc, char const *argv[])
     //char *t;
     //strcpy(t, textEntree);
     // test de la fonction trouver occurence routine
-    ListeChaine listeChaine = trouverOccurenceRoutine(textEntree, tabMots, tailleTabMots);
+    ListeChaine listeChaine = trouverOccurenceRoutine(m, tabMots, tailleTabMots);
     
     Routine r = listeChaine->initiale;
     while (r != NULL)
