@@ -150,9 +150,9 @@ char *inputString(FILE *fp, size_t size)
  *  const char *mot_a_trouver = "while";
  *  le nombre d'occurence dans cet exemple sera 4
  */
-int countWordOccurence(const char *textEntree, const char *mot_a_trouver)
+int countWordOccurence(char *textEntree, const char *mot_a_trouver)
 {
-     char *p = textEntree;
+    char *p = textEntree;
     int trouve = 0;
 
     for (; p != NULL;)
@@ -202,19 +202,19 @@ char *substring(char *destination, const char *source, int debut, int n)
 // l'accolade fermante correspondante.
 int trouverAccoFerm(const char *textEntree, int openPos, int *cpt)
 {
-    int closePos = openPos;
-    int Compteur = 1;
-    while (Compteur > 0 && closePos <= strlen(textEntree))
+    unsigned long closePos = openPos;
+    int compteur = 1;
+    while (compteur > 0 && closePos <= strlen(textEntree))
     {
         //printf("compteur accolade: %i\n", Compteur);
         char c = textEntree[++closePos];
         if (c == '{')
         {
-            Compteur++;
+            compteur++;
         }
         else if (c == '}')
         {
-            Compteur--;
+            compteur--;
         }
         // Lorsque le compteur atteint zéro,
         //  vous avez trouvé la parenthèse fermante correspondante.
@@ -247,12 +247,8 @@ char *findMatchingBraces(char *textEntree, int *cpt)
     len = derniereAccol - premiereAccol;
     ;
     char *destination = malloc(sizeof(char) * len + 2 );
-//    printf("Le cpt: %i, p : %s\n", *cpt, p);
-    printf("test accolade 2\n");
     substring(destination, p, premiereAccol, len + 1);
-    printf("test accolade 3\n");
     destination[len + 1] = '\0';
-    printf("test acollade 4\n");
     return destination;
 }
 
@@ -262,22 +258,12 @@ ListeChaine trouverOccurenceRoutine( char * texteEntree, char *tabMots[], int lo
 {
     int compteur = 0;
     ListeChaine liste = creerListe();
-    //printf("test1\n");
-
     char *chaineRoutine = findMatchingBraces(texteEntree, &compteur);
-    //printf("test2\n");
-
     int cpt;
-    int somme = 0;
-    //int longueur = strcspn(texteEntree, "{");
     Routine routine = NULL;
     while (strlen(chaineRoutine) > 0)
     {
-        printf("test3\n");
-        printf("texteEntree + cpt :%i, texteentree max: %i\n",texteEntree + compteur,texteEntree + strlen(texteEntree));
-	// printf("Chaine sortie: %s\n", chaineRoutine);
         cpt = 0;
-        //longueur += strlen(chaineRoutine);
         ajouterRoutine(longeurTabMot, liste);
 
         while (cpt < longeurTabMot)
@@ -286,12 +272,9 @@ ListeChaine trouverOccurenceRoutine( char * texteEntree, char *tabMots[], int lo
             routine->occurence[cpt] = countWordOccurence(chaineRoutine, tabMots[cpt]);
             ++cpt;
         }
-        //printf("Actuel : %i , Max :%i\n", longueur + texteEntree, texteEntree + strlen(texteEntree));
         free(chaineRoutine);
         chaineRoutine = NULL;
         chaineRoutine = findMatchingBraces(texteEntree + compteur, &compteur);
-        //printf("succes\n");
-	printf("texteEntree + cpt :%i, texteentree max: %i\n",texteEntree + compteur,texteEntree + strlen(texteEntree));
     }
     free(chaineRoutine);
     chaineRoutine = NULL;
@@ -303,12 +286,13 @@ ListeChaine trouverOccurenceRoutine( char * texteEntree, char *tabMots[], int lo
 
 int main(int argc, char const *argv[])
 {
-
-    // printf("test1\n");
     int estEOF = 0;
     int longBuffer = 0;
     int i = 0;
     int tailleTabMots = 0;
+    //var qui stock le texte entre au stdin
+    char *textEntree;
+    int tailleText;
 
     // Verifier si on a juste le nom du fichier.
     verifierArgument(argc);
@@ -338,53 +322,18 @@ int main(int argc, char const *argv[])
 
     tailleTabMots = analyserMots(buffer, tabMots, 0);
 
-    // printf("Buffer: %s\n", buffer);
-    // printf("%s\n", tabMots[1]);
     // detruireChaine(tabMots, longBuffer);
     free(buffer);
     buffer = NULL;
     fclose(file);
 
+    textEntree = inputString(stdin, 10);
 
-
-    // ******************************************************************
-    // ******************************************************************
-    // Cette partie dépend de la méthode (inputString)
-    // Sert à tester la methode inputString
-    char *m;
-    int tailleText;
-
-    //printf("input string : ");
-    m = inputString(stdin, 10);
-    //printf("%s\n", m);
     // Taille du texte entré par l'utilisateur : exemple:
     // Allo\nBonjour\0(CTRL D)       ==>     13     NB: je compte pas le (CTRL D)
-    tailleText = strlen(m) - 1;
-    //printf("\n\n\nla taille est : %i", tailleText);
-
-    //free(m);
-
-    // Cette partie dépend de la methode (countWordOccurence)
-    // Sert à tester la methode countWordOccurence
-
-    int count = 0;
-    //const char *textEntree = "  while()().while()\n while  while";
-    //const char *mot_a_trouver = "while";
-    //count = countWordOccurence(textEntree, mot_a_trouver);
-    //printf("nbr occurence %i", count);
-
-
-
-
-    // Cette partie dépend de la methode (findMatchingBraces)
-    // Sert à tester la methode findMatchingBraces
-
-    char *textEntree = "  while{afk{}lgmsla{asg;as,gd;}dsvadv{}}{dlfmasg}.while()\n while  while";
-    printf("test\n");
-    //char *t;
-    //strcpy(t, textEntree);
-    // test de la fonction trouver occurence routine
-    ListeChaine listeChaine = trouverOccurenceRoutine(m, tabMots, tailleTabMots);
+    tailleText = strlen(textEntree) - 1;
+    
+    ListeChaine listeChaine = trouverOccurenceRoutine(textEntree, tabMots, tailleTabMots);
     
     Routine r = listeChaine->initiale;
     Routine aLiberer;
@@ -392,7 +341,7 @@ int main(int argc, char const *argv[])
     {
         aLiberer = r;
 	printf("{\n");
-        for (size_t i = 0; i < tailleTabMots; i++)
+        for (int i = 0; i < tailleTabMots; i++)
         {
             
             printf("  %s : %i\n", tabMots[i], r->occurence[i]);
@@ -414,14 +363,14 @@ int main(int argc, char const *argv[])
     //*******************************************************************
     
 
-    for (size_t i = 0; i < tailleTabMots; i++)
+    for (int i = 0; i < tailleTabMots; i++)
     {
         free(tabMots[i]);
         tabMots[i] = NULL;
     }
 
     free(listeChaine);
-    free(m);
+    free(textEntree);
     
     return 0;
 }
