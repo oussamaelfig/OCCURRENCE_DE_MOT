@@ -8,6 +8,10 @@ OBJECTS=TP2main.o ListeChainee.o
 
 BINARY= tp2
 
+.PHONY: run
+run: $(BINARY)
+    ./$(BINARY) txt_Test.txt
+
 all: $(BINARY)
 
 $(BINARY): $(OBJECTS)
