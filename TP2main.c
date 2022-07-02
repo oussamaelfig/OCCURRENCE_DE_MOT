@@ -376,19 +376,7 @@ int main(int argc, char const *argv[])
     // Allo\nBonjour\0(CTRL D)       ==>     13     NB: je compte pas le (CTRL D)
     tailleText = strlen(textEntree) - 1;
     
-    
-    char *output;
-    //int compt;
-    output = removeComment(textEntree);
-    //printf("\n\nle nombre de caractere supp : %i\n\n", compt);
-    printf("%s", output);
-
-    int len1=strlen(textEntree);
-    int len2= strlen(output);
-
-    printf("\nle nombre de caractere supprimés correct est :%i", (len1-len2));
-
-    ListeChaine listeChaine = trouverOccurenceRoutine(output, tabMots, tailleTabMots);
+    ListeChaine listeChaine = trouverOccurenceRoutine(textEntree, tabMots, tailleTabMots);
     
     Routine r = listeChaine->initiale;
     Routine aLiberer;
