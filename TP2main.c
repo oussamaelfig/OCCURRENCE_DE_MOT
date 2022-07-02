@@ -253,6 +253,49 @@ char *findMatchingBraces(char *textEntree, int *cpt)
 }
 
 
+/*
+*Methode qui permet d'enlever les commentaires entre // et /*.../*
+et entre '...' et "..."
+*/
+char *removeComment(char *code) {
+    char *output = malloc(sizeof(char) * strlen(code));
+    int index = 0;
+    int i = 0;
+    //store removed comment code in output
+    while (code[i] != '\0') {
+        if (code[i] == '/' && code[i + 1] == '/') {        //to remove single line comments
+            while (code[i] != '\n') {
+                i++;
+            }
+        } else if (code[i] == '/' && code[i + 1] == '*') {  //to remove multi line comments
+            i = i + 2;
+            while (code[i] != '*' && code[i + 1] != '/') {
+                i++;
+            }
+            i = i + 3;
+        } else if (code[i] == '"') {
+            i++;
+            while (code[i] != '"') {
+                i++;
+            }
+            i = i + 1;
+
+        } else if (code[i] == '\'') {
+            i++;
+            while (code[i] != '\'') {
+                i++;
+            }
+            i = i + 1;
+        } else {           //store the rest of the code in output array
+            output[index++] = code[i++];
+        }
+    }
+    output[index] = '\0';
+
+    return output;
+}
+
+
 
 ListeChaine trouverOccurenceRoutine( char * texteEntree, char *tabMots[], int longeurTabMot)
 {
@@ -333,7 +376,19 @@ int main(int argc, char const *argv[])
     // Allo\nBonjour\0(CTRL D)       ==>     13     NB: je compte pas le (CTRL D)
     tailleText = strlen(textEntree) - 1;
     
-    ListeChaine listeChaine = trouverOccurenceRoutine(textEntree, tabMots, tailleTabMots);
+    
+    char *output;
+    //int compt;
+    output = removeComment(textEntree);
+    //printf("\n\nle nombre de caractere supp : %i\n\n", compt);
+    printf("%s", output);
+
+    int len1=strlen(textEntree);
+    int len2= strlen(output);
+
+    printf("\nle nombre de caractere supprimés correct est :%i", (len1-len2));
+
+    ListeChaine listeChaine = trouverOccurenceRoutine(output, tabMots, tailleTabMots);
     
     Routine r = listeChaine->initiale;
     Routine aLiberer;

@@ -6,7 +6,7 @@ make.exe all --print-data-base --no-builtin-variables --no-builtin-rules --quest
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Tue Jun 28 14:21:16 2022
+# Make data base, printed on Thu Jun 30 18:38:46 2022
 
 # Variables
 
@@ -25,7 +25,7 @@ VBOX_MSI_INSTALL_PATH = C:\Program Files\Oracle\VirtualBox\
 # environment
 LOCALAPPDATA = C:\Users\oussa\AppData\Local
 # environment
-VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-30944950-0837-45d1-8bc7-5ec7f317b14c-sock
+VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-4f1b124f-16f2-40fe-88f6-f7dc3802c6f4-sock
 # makefile (from 'Makefile', line 6)
 CFILES = TP2main.c ListeChainee.c
 # environment
@@ -41,7 +41,7 @@ MAKE_COMMAND := make.exe
 # automatic
 @D = $(patsubst %/,%,$(patsubst %\,%,$(dir $@)))
 # environment
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_37664_BSSHFOYRPRQBNBKB
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_16648_SSWQQUMKGVPVYQWY
 # environment
 FPS_BROWSER_USER_PROFILE_STRING = Default
 # environment
@@ -74,11 +74,11 @@ MAKEFLAGS = pqrR
 # environment
 ONEDRIVE = C:\Users\oussa\OneDrive
 # makefile
-CURDIR := c:/Users/oussa/Desktop/Home Folder/UQAM_�T�_2022/INF3135/TPs/TP2/OCCURRENCE_DE_MOT
+CURDIR := c:/Users/oussa/Desktop/Home Folder/UQAM_�T�_2022/INF3135/TPs/TP2_Vs/OCCURRENCE_DE_MOT
 # environment
 VSCODE_PIPE_LOGGING = true
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # automatic
 *D = $(patsubst %/,%,$(patsubst %\,%,$(dir $*)))
 # environment
@@ -98,7 +98,7 @@ MAKEFILE_LIST := Makefile
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_PID = 37664
+VSCODE_PID = 16648
 # environment
 CLION = C:\Program Files\JetBrains\CLion 2022.1.1\bin;
 # automatic
@@ -230,7 +230,7 @@ PROCESSOR_IDENTIFIER = AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD
 
 # Directories
 
-# . (key c:/Users/oussa/Desktop/Home Folder/UQAM_�T�_2022/INF3135/TPs/TP2/OCCURRENCE_DE_MOT, mtime 1656439295): 16 files, no impossibilities.
+# . (key c:/Users/oussa/Desktop/Home Folder/UQAM_�T�_2022/INF3135/TPs/TP2_Vs/OCCURRENCE_DE_MOT, mtime 1656628697): 16 files, no impossibilities.
 
 # 16 files, no impossibilities in 1 directories.
 
@@ -246,7 +246,7 @@ PROCESSOR_IDENTIFIER = AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-28 12:53:27
+#  Last modified 2022-06-30 18:38:17
 #  File has been updated.
 #  Successfully updated.
 
@@ -285,7 +285,7 @@ all: tp2
 # Not a target:
 TP2main.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-28 14:01:31
+#  Last modified 2022-06-30 18:38:17
 #  File has been updated.
 #  Successfully updated.
 
@@ -336,6 +336,6 @@ ListeChainee.o:
 # strcache performance: lookups = 37 / hit rate = 29%
 # hash-table stats:
 # Load=26/8192=0%, Rehash=0, Collisions=0/37=0%
-# Finished Make data base on Tue Jun 28 14:21:16 2022
+# Finished Make data base on Thu Jun 30 18:38:46 2022
 
  
