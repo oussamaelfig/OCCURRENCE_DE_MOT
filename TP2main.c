@@ -124,13 +124,14 @@ void detruireChaine(char *tM[], int longueur)
 // *************************************************************************************************************************
 // Methode qui sert à demander l'utilisateur d'entrer le texte puis elle store
 // le nombre de caractere dans la variable globale TAILLETexte
-char *inputString(FILE *fp, size_t size)
+char *insererChaine(FILE *fp, size_t size)
 {
     // La taille est étendue par l'entrée avec la valeur du provisoire
     char *str;
     int ch;
     size_t len = 0;
-    str = realloc(NULL, sizeof(*str) * size); // size is start size
+    // size est la taille initiale
+    str = realloc(NULL, sizeof(*str) * size); 
     while (EOF != (ch = fgetc(fp)) && ch != EOF)
     {
         str[len++] = ch;
@@ -150,7 +151,7 @@ char *inputString(FILE *fp, size_t size)
  *  const char *mot_a_trouver = "while";
  *  le nombre d'occurence dans cet exemple sera 4
  */
-int countWordOccurence(char *textEntree, const char *mot_a_trouver)
+int compterNbrOccur(char *textEntree, const char *mot_a_trouver)
 {
     char *p = textEntree;
     int trouve = 0;
@@ -200,14 +201,14 @@ char *substring(char *destination, const char *source, int debut, int n)
 // dans un tableau de caractères, l'algorithme
 // utilise un compteur pour trouver
 // l'accolade fermante correspondante.
-int trouverAccoFerm(const char *textEntree, int openPos, int *cpt)
+int trouverAccoFerm(const char *textEntree, int accoOuvrante, int *cpt)
 {
-    unsigned long closePos = openPos;
+    unsigned long accoFermante = accoOuvrante;
     int compteur = 1;
-    while (compteur > 0 && closePos <= strlen(textEntree))
+    while (compteur > 0 && accoFermante <= strlen(textEntree))
     {
         //printf("compteur accolade: %i\n", Compteur);
-        char c = textEntree[++closePos];
+        char c = textEntree[++accoFermante];
         if (c == '{')
         {
             compteur++;
@@ -219,8 +220,8 @@ int trouverAccoFerm(const char *textEntree, int openPos, int *cpt)
         // Lorsque le compteur atteint zéro,
         //  vous avez trouvé la parenthèse fermante correspondante.
     }
-    *cpt += closePos;
-    return closePos;
+    *cpt += accoFermante;
+    return accoFermante;
 }
 
 
@@ -228,7 +229,7 @@ int trouverAccoFerm(const char *textEntree, int openPos, int *cpt)
 //Fonction qui permet d'extraire la chaine entre l'accolade ouvrante et fermante
 // "  while{afk{}lgmsla{asg;as,gd;}dsvadv{}}{dlfmasg}.while()\n while  while"
 // "{afk{}lgmsla{asg;as,gd;}dsvadv{}" ça retourne la chaine entre accolade sauf que ça retounre pas la derniere accolade, ça ne cree aucun probleme
-char *findMatchingBraces(char *textEntree, int *cpt)
+char *parentheseCorresp(char *textEntree, int *cpt)
 {
     int premiereAccol;
     int derniereAccol;
@@ -257,17 +258,19 @@ char *findMatchingBraces(char *textEntree, int *cpt)
 *Methode qui permet d'enlever les commentaires entre // et /*.../*
 et entre '...' et "..."
 */
-char *removeComment(char *code) {
+char *supprimerComments(char *code) {
     char *output = malloc(sizeof(char) * strlen(code));
     int index = 0;
     int i = 0;
     //store removed comment code in output
     while (code[i] != '\0') {
-        if (code[i] == '/' && code[i + 1] == '/') {        //to remove single line comments
+        //Pour supprimer une ligne de commentaire
+        if (code[i] == '/' && code[i + 1] == '/') {        
             while (code[i] != '\n') {
                 i++;
             }
-        } else if (code[i] == '/' && code[i + 1] == '*') {  //to remove multi line comments
+             //Pour supprimer multiples lignes de comments
+        } else if (code[i] == '/' && code[i + 1] == '*') { 
             i = i + 2;
             while (code[i] != '*' && code[i + 1] != '/') {
                 i++;
@@ -286,7 +289,8 @@ char *removeComment(char *code) {
                 i++;
             }
             i = i + 1;
-        } else {           //store the rest of the code in output array
+        } else {           
+            //stocker le reste dans un tableau
             output[index++] = code[i++];
         }
     }
@@ -301,7 +305,7 @@ ListeChaine trouverOccurenceRoutine( char * texteEntree, char *tabMots[], int lo
 {
     int compteur = 0;
     ListeChaine liste = creerListe();
-    char *chaineRoutine = findMatchingBraces(texteEntree, &compteur);
+    char *chaineRoutine = parentheseCorresp(texteEntree, &compteur);
     int cpt;
     Routine routine = NULL;
     while (strlen(chaineRoutine) > 0)
@@ -312,12 +316,12 @@ ListeChaine trouverOccurenceRoutine( char * texteEntree, char *tabMots[], int lo
         while (cpt < longeurTabMot)
         {
             routine = retournerDerniereRoutine(liste);
-            routine->occurence[cpt] = countWordOccurence(chaineRoutine, tabMots[cpt]);
+            routine->occurence[cpt] = compterNbrOccur(chaineRoutine, tabMots[cpt]);
             ++cpt;
         }
         free(chaineRoutine);
         chaineRoutine = NULL;
-        chaineRoutine = findMatchingBraces(texteEntree + compteur, &compteur);
+        chaineRoutine = parentheseCorresp(texteEntree + compteur, &compteur);
     }
     free(chaineRoutine);
     chaineRoutine = NULL;
@@ -370,7 +374,7 @@ int main(int argc, char const *argv[])
     buffer = NULL;
     fclose(file);
 
-    textEntree = inputString(stdin, 10);
+    textEntree = insererChaine(stdin, 10);
 
     // Taille du texte entré par l'utilisateur : exemple:
     // Allo\nBonjour\0(CTRL D)       ==>     13     NB: je compte pas le (CTRL D)
@@ -399,7 +403,7 @@ int main(int argc, char const *argv[])
 	aLiberer = NULL;
     }
 
-    //char *v = findMatchingBraces(textEntree);
+    //char *v = parentheseCorresp(textEntree);
    // printf("la chaine retounrnée est : %s", v);
    // free(v);
     //*******************************************************************
