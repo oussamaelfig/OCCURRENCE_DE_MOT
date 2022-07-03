@@ -65,7 +65,7 @@ int charEstValide(char c)
     else
     {
         // printf("%c\n", c);
-        fprintf(stderr, "Le fichier contient autre chose que des mots valides séparés par des blancs123\n");
+        fprintf(stderr, "Le fichier contient autre chose que des mots valides séparés par des blancs\n");
         exit(-1);
     }
     return estValide;
@@ -81,12 +81,12 @@ int charEstValide(char c)
  * @param indice
  * @return int indice qui est le nombre de mot que le fichier contient
  */
-int analyserMots(char *buffer, char *tM[], int indice, int tailleTexte)
+int analyserMots(char *buffer, char *tM[], int indice)
 {
     int i = 0;
     int j = 0;
     int longBuffer = strlen(buffer);
-    if(tailleTexte <= 0)
+    if(longBuffer <= 0)
     {
         fprintf(stderr, "Erreur, le fichier de mots à trouver est vide.\n");
         exit(-1);
@@ -513,7 +513,7 @@ int main(int argc, char const *argv[])
     buffer[i] = 0;
     char *tabMots[longBuffer];
 
-    tailleTabMots = analyserMots(buffer, tabMots, 0, longBuffer);
+    tailleTabMots = analyserMots(buffer, tabMots, 0);
 
     // detruireChaine(tabMots, longBuffer);
     free(buffer);
