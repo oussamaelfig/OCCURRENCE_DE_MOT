@@ -86,11 +86,6 @@ int analyserMots(char *buffer, char *tM[], int indice)
     int i = 0;
     int j = 0;
     int longBuffer = strlen(buffer);
-    if(longBuffer <= 0)
-    {
-        fprintf(stderr, "Erreur, le fichier de mots à trouver est vide.\n");
-        exit(-1);
-    }
     while (i < longBuffer - 1 || buffer[i] != 0)
     {
         if (estLettre(buffer[i]))
