@@ -81,11 +81,16 @@ int charEstValide(char c)
  * @param indice
  * @return int indice qui est le nombre de mot que le fichier contient
  */
-int analyserMots(char *buffer, char *tM[], int indice)
+int analyserMots(char *buffer, char *tM[], int indice, int tailleTexte)
 {
     int i = 0;
     int j = 0;
     int longBuffer = strlen(buffer);
+    if(tailleTexte <= 0)
+    {
+        fprintf(stderr, "Erreur, le fichier de mots à trouver est vide.\n");
+        exit(-1);
+    }
     while (i < longBuffer - 1 || buffer[i] != 0)
     {
         if (estLettre(buffer[i]))
@@ -174,8 +179,15 @@ void detruireChaine(char *tM[], int longueur)
     }
 }
 
-// *************************************************************************************************************************
-// *************************************************************************************************************************
+/**
+ * Fonction qui est responsable de prendre la saisie depuis le stdin sans prompt.
+ * La fin de saisie est réaliser grace a ctrl+d (EOF) 
+ * La chaine de char produite est mise dans un variable qui renvoyer
+ * 
+ * @param fp 
+ * @param size 
+ * @return char* la cahine entree par l'utilisateur (le programme C a analyser)
+ */
 char *insererChaine(FILE *fp, size_t size)
 {
     // La taille est étendue par l'entrée avec la valeur du provisoire
@@ -193,7 +205,6 @@ char *insererChaine(FILE *fp, size_t size)
         }
     }
     str[len++] = '\0';
-    // printf("\n\n\nLa taille du texte entré est : %i", TAILLETXT);
     return realloc(str, sizeof(*str) * len);
 }
 
@@ -441,6 +452,15 @@ void afficherOcTotales(char *tabMots[], int *occTotal, int taille)
     printf("\n");
 }
 
+/**
+ * Fonction qui permet de calculer le nombre d'occurence des mots a trouver
+ * dans tout le programme, qu'il soit dans une routine ou pas.
+ * 
+ * @param textEntree 
+ * @param tabMots 
+ * @param tailleTabMots 
+ * @return int* r qui est un tab d'occurence (1ere case => 1er mot, ...)
+ */
 int *calculerTotal(char *textEntree, char *tabMots[], int tailleTabMots)
 {
     int *r = malloc(tailleTabMots * sizeof(int));
@@ -493,7 +513,7 @@ int main(int argc, char const *argv[])
     buffer[i] = 0;
     char *tabMots[longBuffer];
 
-    tailleTabMots = analyserMots(buffer, tabMots, 0);
+    tailleTabMots = analyserMots(buffer, tabMots, 0, longBuffer);
 
     // detruireChaine(tabMots, longBuffer);
     free(buffer);
