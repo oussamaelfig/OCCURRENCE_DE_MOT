@@ -12,13 +12,12 @@
 #include "ListeChainee.h"
 #define DEBUG
 
-
 /**
  * Fonction qui verfie si le char est une lettre de l'alphabet anglais.
  * Le "& 0x00DF" permet de rendre une lettre maj et si elle l'etait deja, elle
  * restera inchangee.
- * 
- * @param c 
+ *
+ * @param c
  * @return int 1 si c'est une lettre sinon 0
  */
 int estLettre(char c)
@@ -28,8 +27,8 @@ int estLettre(char c)
 
 /**
  * Verifie si le char est un chiffre
- * 
- * @param c 
+ *
+ * @param c
  * @return int 1 si c'est un chiffre sinon 0
  */
 int estChiffre(char c)
@@ -39,8 +38,8 @@ int estChiffre(char c)
 
 /**
  * Verifie si le char est un "blanc"
- * 
- * @param c 
+ *
+ * @param c
  * @return int 1 si oui sinon 0
  */
 int estEspaceBlanc(char c)
@@ -51,8 +50,8 @@ int estEspaceBlanc(char c)
 /**
  * Fonction qui verfie si le char est valide ou pas.
  * valide (lettre, '_', chiffres ou blanc )
- * 
- * @param c 
+ *
+ * @param c
  * @return int estValide (1 si le char est valide sinon 0)
  */
 int charEstValide(char c)
@@ -76,10 +75,10 @@ int charEstValide(char c)
  * analyse so le fichier contient des mot valide et stock ces mots dans un tableau
  * de mot.
  * Si un char non valide est detecte, le programme se termine.
- * 
- * @param buffer 
- * @param tM 
- * @param indice 
+ *
+ * @param buffer
+ * @param tM
+ * @param indice
  * @return int indice qui est le nombre de mot que le fichier contient
  */
 int analyserMots(char *buffer, char *tM[], int indice)
@@ -117,12 +116,11 @@ int analyserMots(char *buffer, char *tM[], int indice)
     return indice;
 }
 
-
 /**
  * Procedure qui verifie si le bon nombre d'arguments est entre.
  * Si ce n'est pas le cas, le programme se termine.
- * 
- * @param argc 
+ *
+ * @param argc
  */
 void verifierArgument(int argc)
 {
@@ -136,8 +134,8 @@ void verifierArgument(int argc)
 /**
  * Fonction qui compte le nombre de char que contient le texte entre par
  * l'utilisateur
- * 
- * @param nom 
+ *
+ * @param nom
  * @return int cpt qui est le nombre de caracteres entres
  */
 int compterChar(const char *nom)
@@ -162,9 +160,9 @@ int compterChar(const char *nom)
 /**
  * Cette procedure vient detruire toutes les sous chaines qui correspondent aux mots
  * a trouver dans le texte.
- * 
- * @param tM 
- * @param longueur 
+ *
+ * @param tM
+ * @param longueur
  */
 void detruireChaine(char *tM[], int longueur)
 {
@@ -306,9 +304,9 @@ char *parentheseCorresp(char *textEntree, int *cpt)
 }
 
 /*
-* Methode qui permet d'enlever les commentaires 
-* et entre '...' et "..."
-*/
+ * Methode qui permet d'enlever les commentaires
+ * et entre '...' et "..."
+ */
 char *supprimerComments(char *code)
 {
     char *output = malloc(sizeof(char) * strlen(code));
@@ -368,10 +366,10 @@ char *supprimerComments(char *code)
  * Cette fonction vient parcourir le texte que l'utilisateur a rentré et crée une nouvelle
  * routine dans la liste chainee qui contient un tableau d'occurence pour chaque mot.
  * La case a l'indice 0 correspond au premier mot du fichier de mot, l'indice 1 au 2e, etc..
- * 
- * @param texteEntree 
- * @param tabMots 
- * @param longeurTabMot 
+ *
+ * @param texteEntree
+ * @param tabMots
+ * @param longeurTabMot
  * @return ListeChaine liste qui contient toutes les routines du texte entre et dans chacune des routine un tab d'occurence
  */
 ListeChaine trouverOccurenceRoutine(char *texteEntree, char *tabMots[], int longeurTabMot)
@@ -403,10 +401,10 @@ ListeChaine trouverOccurenceRoutine(char *texteEntree, char *tabMots[], int long
 
 /**
  * Cette fonction affiche le nombre d'occurence de chaque mot pour chaque routine
- * 
+ *
  * @param liste ListeChaine a afficher
  */
-void afficherSomme(ListeChaine liste, int tailleTabMots, char * tabMots[])
+void afficherSomme(ListeChaine liste, int tailleTabMots, char *tabMots[])
 {
     Routine r = liste->initiale;
     Routine aLiberer;
@@ -428,6 +426,15 @@ void afficherSomme(ListeChaine liste, int tailleTabMots, char * tabMots[])
     }
 }
 
+void afficherOcTotales(char * tabMots[], int *occTotal, int taille)
+{
+    for (int i = 0; i < taille; i++)
+    {
+        printf("%s : %i\n", tabMots[i], occTotal[i]);
+    }
+    printf("\n");
+}
+
 // ****************************************************************************************************************************
 // ****************************************************************************************************************************
 
@@ -440,6 +447,9 @@ int main(int argc, char const *argv[])
     // var qui stock le texte entre au stdin
     char *textEntree;
     int tailleText;
+    // tableau de int qui contient la somme des occurences
+    int *occurencesTotales;
+    int tailleListe = 0;
 
     // Verifier si on a juste le nom du fichier.
     verifierArgument(argc);
@@ -481,9 +491,15 @@ int main(int argc, char const *argv[])
     tailleText = strlen(textEntree) - 1;
 
     ListeChaine listeChaine = trouverOccurenceRoutine(textEntree, tabMots, tailleTabMots);
+    occurencesTotales = additionnerOccurence(listeChaine, tailleTabMots);
+    tailleListe = trouverTailleListe(listeChaine);
 
+    // Afficher les occurences pour chaque routine
     afficherSomme(listeChaine, tailleTabMots, tabMots);
-    
+
+    // afficher les occurences totales
+    afficherOcTotales(tabMots, occurencesTotales, tailleTabMots);
+
     // char *v = parentheseCorresp(textEntree);
     // printf("la chaine retounrnée est : %s", v);
     // free(v);

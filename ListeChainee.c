@@ -79,19 +79,25 @@ int *additionnerOccurence(ListeChaine liste, int longueur)
     if (buffer != NULL)
     {
         somme = malloc(longueur * sizeof(int));
+        for (int i = 0; i < longueur; i++)
+        {
+            somme[i] = 0;
+        }
+
         int i = 0;
-        while (buffer->suivante != NULL)
+        do
         {
             for (i = 0; i < longueur; i++)
             {
-                somme[i] += longueur;
+                somme[i] += buffer->occurence[i];
             }
-        }
-    }else
+            buffer = buffer->suivante;
+        } while (buffer != NULL);
+    }
+    else
     {
         somme = NULL;
     }
-
     return somme;
 }
 
