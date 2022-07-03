@@ -424,13 +424,33 @@ void afficherSomme(ListeChaine liste, int tailleTabMots, char *tabMots[])
     }
 }
 
-void afficherOcTotales(char * tabMots[], int *occTotal, int taille)
+/**
+ * Procedure qui est responsable d'affcher le tabelau des sommes des occurences.
+ * La premiere case du tab correspond au premier mot du fichier, la 2e au 2e mot etc...
+ *
+ * @param tabMots
+ * @param occTotal
+ * @param taille
+ */
+void afficherOcTotales(char *tabMots[], int *occTotal, int taille)
 {
     for (int i = 0; i < taille; i++)
     {
         printf("%s : %i\n", tabMots[i], occTotal[i]);
     }
     printf("\n");
+}
+
+int *calculerTotal(char *textEntree, char *tabMots[], int tailleTabMots)
+{
+    int *r = malloc(tailleTabMots * sizeof(int));
+    int i = 0;
+    while (i < tailleTabMots)
+    {
+        r[i] = compterNbrOccur(textEntree, tabMots[i]);
+        ++i;
+    }
+    return r;
 }
 
 // ****************************************************************************************************************************
@@ -482,13 +502,12 @@ int main(int argc, char const *argv[])
 
     textEntree = insererChaine(stdin, 10);
 
-    // Taille du texte entré par l'utilisateur : exemple:
-    // Allo\nBonjour\0(CTRL D)       ==>     13     NB: je compte pas le (CTRL D)
-    
+    textEntree = supprimerComments(textEntree);
+
+    occurencesTotales = calculerTotal(textEntree, tabMots, tailleTabMots);
 
     ListeChaine listeChaine = trouverOccurenceRoutine(textEntree, tabMots, tailleTabMots);
-    occurencesTotales = additionnerOccurence(listeChaine, tailleTabMots);
-
+    //occurencesTotales = additionnerOccurence(listeChaine, tailleTabMots);
 
     // Afficher les occurences pour chaque routine
     afficherSomme(listeChaine, tailleTabMots, tabMots);
@@ -510,6 +529,8 @@ int main(int argc, char const *argv[])
 
     free(listeChaine);
     free(textEntree);
+    free(occurencesTotales);
+    occurencesTotales = NULL;
 
     return 0;
 }
