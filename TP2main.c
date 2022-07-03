@@ -12,21 +12,49 @@
 #include "ListeChainee.h"
 #define DEBUG
 
+
+/**
+ * Fonction qui verfie si le char est une lettre de l'alphabet anglais.
+ * Le "& 0x00DF" permet de rendre une lettre maj et si elle l'etait deja, elle
+ * restera inchangee.
+ * 
+ * @param c 
+ * @return int 1 si c'est une lettre sinon 0
+ */
 int estLettre(char c)
 {
     return (c & 0x00DF) >= 'A' && (c & 0x00DF) <= 'Z';
 }
 
+/**
+ * Verifie si le char est un chiffre
+ * 
+ * @param c 
+ * @return int 1 si c'est un chiffre sinon 0
+ */
 int estChiffre(char c)
 {
     return c >= '0' && c <= '9';
 }
 
+/**
+ * Verifie si le char est un "blanc"
+ * 
+ * @param c 
+ * @return int 1 si oui sinon 0
+ */
 int estEspaceBlanc(char c)
 {
     return c == ' ' || c == '\t' || c == '\n';
 }
 
+/**
+ * Fonction qui verfie si le char est valide ou pas.
+ * valide (lettre, '_', chiffres ou blanc )
+ * 
+ * @param c 
+ * @return int estValide (1 si le char est valide sinon 0)
+ */
 int charEstValide(char c)
 {
     char cMaj = c & 0x00DF;
@@ -44,9 +72,16 @@ int charEstValide(char c)
     return estValide;
 }
 
-/*
-    Fonction qui analyse une string composée d'un ou plusieurs mots valide.
-*/
+/**
+ * analyse so le fichier contient des mot valide et stock ces mots dans un tableau
+ * de mot.
+ * Si un char non valide est detecte, le programme se termine.
+ * 
+ * @param buffer 
+ * @param tM 
+ * @param indice 
+ * @return int indice qui est le nombre de mot que le fichier contient
+ */
 int analyserMots(char *buffer, char *tM[], int indice)
 {
     int i = 0;
@@ -75,13 +110,20 @@ int analyserMots(char *buffer, char *tM[], int indice)
         j = 0;
         ++i;
     }
-    if(indice == 0)
+    if (indice == 0)
     {
         ++indice;
     }
     return indice;
 }
 
+
+/**
+ * Procedure qui verifie si le bon nombre d'arguments est entre.
+ * Si ce n'est pas le cas, le programme se termine.
+ * 
+ * @param argc 
+ */
 void verifierArgument(int argc)
 {
     if (argc != 2)
@@ -91,6 +133,13 @@ void verifierArgument(int argc)
     }
 }
 
+/**
+ * Fonction qui compte le nombre de char que contient le texte entre par
+ * l'utilisateur
+ * 
+ * @param nom 
+ * @return int cpt qui est le nombre de caracteres entres
+ */
 int compterChar(const char *nom)
 {
     FILE *file = fopen(nom, "r");
@@ -110,6 +159,13 @@ int compterChar(const char *nom)
     return cpt;
 }
 
+/**
+ * Cette procedure vient detruire toutes les sous chaines qui correspondent aux mots
+ * a trouver dans le texte.
+ * 
+ * @param tM 
+ * @param longueur 
+ */
 void detruireChaine(char *tM[], int longueur)
 {
     int i = 0;
@@ -131,14 +187,13 @@ char *insererChaine(FILE *fp, size_t size)
     int ch;
     size_t len = 0;
     // size est la taille initiale
-    str = realloc(NULL, sizeof(*str) * size); 
+    str = realloc(NULL, sizeof(*str) * size);
     while (EOF != (ch = fgetc(fp)) && ch != EOF)
     {
         str[len++] = ch;
         if (len == size)
         {
             str = realloc(str, sizeof(*str) * (size += 16));
-
         }
     }
     str[len++] = '\0';
@@ -195,19 +250,18 @@ char *substring(char *destination, const char *source, int debut, int n)
     return destination;
 }
 
-
-//Fonction pour trouver les postion de l'accolade fermantes
+// Fonction pour trouver les postion de l'accolade fermantes
 //Étant donné la position d'une parenthèse ouverte
-// dans un tableau de caractères, l'algorithme
-// utilise un compteur pour trouver
-// l'accolade fermante correspondante.
+//  dans un tableau de caractères, l'algorithme
+//  utilise un compteur pour trouver
+//  l'accolade fermante correspondante.
 int trouverAccoFerm(const char *textEntree, int accoOuvrante, int *cpt)
 {
     unsigned long accoFermante = accoOuvrante;
     int compteur = 1;
     while (compteur > 0 && accoFermante <= strlen(textEntree))
     {
-        //printf("compteur accolade: %i\n", Compteur);
+        // printf("compteur accolade: %i\n", Compteur);
         char c = textEntree[++accoFermante];
         if (c == '{')
         {
@@ -224,73 +278,84 @@ int trouverAccoFerm(const char *textEntree, int accoOuvrante, int *cpt)
     return accoFermante;
 }
 
-
-
-//Fonction qui permet d'extraire la chaine entre l'accolade ouvrante et fermante
-// "  while{afk{}lgmsla{asg;as,gd;}dsvadv{}}{dlfmasg}.while()\n while  while"
-// "{afk{}lgmsla{asg;as,gd;}dsvadv{}" ça retourne la chaine entre accolade sauf que ça retounre pas la derniere accolade, ça ne cree aucun probleme
+// Fonction qui permet d'extraire la chaine entre l'accolade ouvrante et fermante
+//  "  while{afk{}lgmsla{asg;as,gd;}dsvadv{}}{dlfmasg}.while()\n while  while"
+//  "{afk{}lgmsla{asg;as,gd;}dsvadv{}" ça retourne la chaine entre accolade sauf que ça retounre pas la derniere accolade, ça ne cree aucun probleme
 char *parentheseCorresp(char *textEntree, int *cpt)
 {
     int premiereAccol;
     int derniereAccol;
     int len;
     const char *p = textEntree;
- //   printf("Le texte que finMatching recoit est: %s\n", p);
+    //   printf("Le texte que finMatching recoit est: %s\n", p);
     // Le caractere qu'on veut trouver
     char key[] = "{";
-    //Trouver la position de la premiere accolade avec la methode strcspn
+    // Trouver la position de la premiere accolade avec la methode strcspn
     premiereAccol = strcspn(p, key);
-    
+
     //*cpt += premiereAccol;
     // printf("The first number in str is at position %d.\n", premiereAccol); //DEBUG
     derniereAccol = trouverAccoFerm(p, premiereAccol, cpt);
     // La taille de la chaine à extraire est :
     len = derniereAccol - premiereAccol;
     ;
-    char *destination = malloc(sizeof(char) * len + 2 );
+    char *destination = malloc(sizeof(char) * len + 2);
     substring(destination, p, premiereAccol, len + 1);
     destination[len + 1] = '\0';
     return destination;
 }
 
-
 /*
-*Methode qui permet d'enlever les commentaires entre // et /*.../*
-et entre '...' et "..."
+* Methode qui permet d'enlever les commentaires 
+* et entre '...' et "..."
 */
-char *supprimerComments(char *code) {
+char *supprimerComments(char *code)
+{
     char *output = malloc(sizeof(char) * strlen(code));
     int index = 0;
     int i = 0;
-    //store removed comment code in output
-    while (code[i] != '\0') {
-        //Pour supprimer une ligne de commentaire
-        if (code[i] == '/' && code[i + 1] == '/') {        
-            while (code[i] != '\n') {
+    // store removed comment code in output
+    while (code[i] != '\0')
+    {
+        // Pour supprimer une ligne de commentaire
+        if (code[i] == '/' && code[i + 1] == '/')
+        {
+            while (code[i] != '\n')
+            {
                 i++;
             }
-             //Pour supprimer multiples lignes de comments
-        } else if (code[i] == '/' && code[i + 1] == '*') { 
+            // Pour supprimer multiples lignes de comments
+        }
+        else if (code[i] == '/' && code[i + 1] == '*')
+        {
             i = i + 2;
-            while (code[i] != '*' && code[i + 1] != '/') {
+            while (code[i] != '*' && code[i + 1] != '/')
+            {
                 i++;
             }
             i = i + 3;
-        } else if (code[i] == '"') {
+        }
+        else if (code[i] == '"')
+        {
             i++;
-            while (code[i] != '"') {
+            while (code[i] != '"')
+            {
                 i++;
             }
             i = i + 1;
-
-        } else if (code[i] == '\'') {
+        }
+        else if (code[i] == '\'')
+        {
             i++;
-            while (code[i] != '\'') {
+            while (code[i] != '\'')
+            {
                 i++;
             }
             i = i + 1;
-        } else {           
-            //stocker le reste dans un tableau
+        }
+        else
+        {
+            // stocker le reste dans un tableau
             output[index++] = code[i++];
         }
     }
@@ -299,9 +364,17 @@ char *supprimerComments(char *code) {
     return output;
 }
 
-
-
-ListeChaine trouverOccurenceRoutine( char * texteEntree, char *tabMots[], int longeurTabMot)
+/**
+ * Cette fonction vient parcourir le texte que l'utilisateur a rentré et crée une nouvelle
+ * routine dans la liste chainee qui contient un tableau d'occurence pour chaque mot.
+ * La case a l'indice 0 correspond au premier mot du fichier de mot, l'indice 1 au 2e, etc..
+ * 
+ * @param texteEntree 
+ * @param tabMots 
+ * @param longeurTabMot 
+ * @return ListeChaine liste qui contient toutes les routines du texte entre et dans chacune des routine un tab d'occurence
+ */
+ListeChaine trouverOccurenceRoutine(char *texteEntree, char *tabMots[], int longeurTabMot)
 {
     int compteur = 0;
     ListeChaine liste = creerListe();
@@ -328,6 +401,33 @@ ListeChaine trouverOccurenceRoutine( char * texteEntree, char *tabMots[], int lo
     return liste;
 }
 
+/**
+ * Cette fonction affiche le nombre d'occurence de chaque mot pour chaque routine
+ * 
+ * @param liste ListeChaine a afficher
+ */
+void afficherSomme(ListeChaine liste, int tailleTabMots, char * tabMots[])
+{
+    Routine r = liste->initiale;
+    Routine aLiberer;
+    while (r != NULL)
+    {
+        aLiberer = r;
+        printf("{\n");
+        for (int i = 0; i < tailleTabMots; i++)
+        {
+            printf("  %s : %i\n", tabMots[i], r->occurence[i]);
+        }
+        printf("}\n");
+        printf("\n");
+        r = r->suivante;
+        free(aLiberer->occurence);
+        aLiberer->occurence = NULL;
+        free(aLiberer);
+        aLiberer = NULL;
+    }
+}
+
 // ****************************************************************************************************************************
 // ****************************************************************************************************************************
 
@@ -337,7 +437,7 @@ int main(int argc, char const *argv[])
     int longBuffer = 0;
     int i = 0;
     int tailleTabMots = 0;
-    //var qui stock le texte entre au stdin
+    // var qui stock le texte entre au stdin
     char *textEntree;
     int tailleText;
 
@@ -379,36 +479,16 @@ int main(int argc, char const *argv[])
     // Taille du texte entré par l'utilisateur : exemple:
     // Allo\nBonjour\0(CTRL D)       ==>     13     NB: je compte pas le (CTRL D)
     tailleText = strlen(textEntree) - 1;
-    
-    ListeChaine listeChaine = trouverOccurenceRoutine(textEntree, tabMots, tailleTabMots);
-    
-    Routine r = listeChaine->initiale;
-    Routine aLiberer;
-    while (r != NULL)
-    {
-        aLiberer = r;
-	printf("{\n");
-        for (int i = 0; i < tailleTabMots; i++)
-        {
-            
-            printf("  %s : %i\n", tabMots[i], r->occurence[i]);
-            
-        }
-        printf("}\n");
-        printf("\n");
-        r = r->suivante;
-	free(aLiberer->occurence);
-	aLiberer->occurence = NULL;
-	free(aLiberer);
-	aLiberer = NULL;
-    }
 
-    //char *v = parentheseCorresp(textEntree);
-   // printf("la chaine retounrnée est : %s", v);
-   // free(v);
-    //*******************************************************************
-    //*******************************************************************
+    ListeChaine listeChaine = trouverOccurenceRoutine(textEntree, tabMots, tailleTabMots);
+
+    afficherSomme(listeChaine, tailleTabMots, tabMots);
     
+    // char *v = parentheseCorresp(textEntree);
+    // printf("la chaine retounrnée est : %s", v);
+    // free(v);
+    //*******************************************************************
+    //*******************************************************************
 
     for (int i = 0; i < tailleTabMots; i++)
     {
@@ -418,6 +498,6 @@ int main(int argc, char const *argv[])
 
     free(listeChaine);
     free(textEntree);
-    
+
     return 0;
 }
