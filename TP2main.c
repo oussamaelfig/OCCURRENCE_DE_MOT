@@ -143,10 +143,8 @@ int compterChar(const char *nom)
     FILE *file = fopen(nom, "r");
     int cpt = 0;
     int estFini = 0;
-    char c = 0;
     do
     {
-        c = fgetc(file);
         if (feof(file))
         {
             estFini = 1;
@@ -176,8 +174,6 @@ void detruireChaine(char *tM[], int longueur)
 
 // *************************************************************************************************************************
 // *************************************************************************************************************************
-// Methode qui sert à demander l'utilisateur d'entrer le texte puis elle store
-// le nombre de caractere dans la variable globale TAILLETexte
 char *insererChaine(FILE *fp, size_t size)
 {
     // La taille est étendue par l'entrée avec la valeur du provisoire
@@ -446,10 +442,8 @@ int main(int argc, char const *argv[])
     int tailleTabMots = 0;
     // var qui stock le texte entre au stdin
     char *textEntree;
-    int tailleText;
     // tableau de int qui contient la somme des occurences
     int *occurencesTotales;
-    int tailleListe = 0;
 
     // Verifier si on a juste le nom du fichier.
     verifierArgument(argc);
@@ -488,11 +482,11 @@ int main(int argc, char const *argv[])
 
     // Taille du texte entré par l'utilisateur : exemple:
     // Allo\nBonjour\0(CTRL D)       ==>     13     NB: je compte pas le (CTRL D)
-    tailleText = strlen(textEntree) - 1;
+    
 
     ListeChaine listeChaine = trouverOccurenceRoutine(textEntree, tabMots, tailleTabMots);
     occurencesTotales = additionnerOccurence(listeChaine, tailleTabMots);
-    tailleListe = trouverTailleListe(listeChaine);
+
 
     // Afficher les occurences pour chaque routine
     afficherSomme(listeChaine, tailleTabMots, tabMots);
