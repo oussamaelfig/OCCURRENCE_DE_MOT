@@ -143,8 +143,10 @@ int compterChar(const char *nom)
     FILE *file = fopen(nom, "r");
     int cpt = 0;
     int estFini = 0;
+    char c = 0;
     do
     {
+        c = fgetc(file);
         if (feof(file))
         {
             estFini = 1;
