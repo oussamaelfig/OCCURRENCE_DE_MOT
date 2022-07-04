@@ -1,0 +1,5 @@
+while : 0
+for : 2
+if : 0
+return : 0
+goto : 0

@@ -1,0 +1,8 @@
+
+./tp2 Mots1.txt < Test1.c > Test1res.txt
+./tp2 Mots1.txt < Test2.c > Test2res.txt
+./tp2 Mots1.txt < Test3.c > Test3res.txt
+./tp2 Mots1.txt < Test4.c > Test4res.txt
+./tp2 Mots1.txt < Test5.c > Test5res.txt
+./tp2 Mots1.txt < Test6.c > Test6res.txt
+./tp2 Mots1.txt < Test7.c > Test7res.txt

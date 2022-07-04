@@ -1,0 +1,13 @@
+{
+  while : 0
+  for : 1
+  if : 0
+  return : 0
+  goto : 0
+}
+
+while : 0
+for : 2
+if : 0
+return : 0
+goto : 0

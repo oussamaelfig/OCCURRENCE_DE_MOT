@@ -1,4 +1,6 @@
 make.exe all --print-data-base --no-builtin-variables --no-builtin-rules --question
+Makefile:13: *** missing separator.  Stop.
+
 # GNU Make 4.3
 # Built for Windows32
 # Copyright (C) 1988-2020 Free Software Foundation, Inc.
@@ -6,7 +8,7 @@ make.exe all --print-data-base --no-builtin-variables --no-builtin-rules --quest
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu Jun 30 18:38:46 2022
+# Make data base, printed on Mon Jul 04 10:38:12 2022
 
 # Variables
 
@@ -25,7 +27,7 @@ VBOX_MSI_INSTALL_PATH = C:\Program Files\Oracle\VirtualBox\
 # environment
 LOCALAPPDATA = C:\Users\oussa\AppData\Local
 # environment
-VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-4f1b124f-16f2-40fe-88f6-f7dc3802c6f4-sock
+VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-65164271-3f83-4bcc-a903-294cecd8c4ec-sock
 # makefile (from 'Makefile', line 6)
 CFILES = TP2main.c ListeChainee.c
 # environment
@@ -41,7 +43,7 @@ MAKE_COMMAND := make.exe
 # automatic
 @D = $(patsubst %/,%,$(patsubst %\,%,$(dir $@)))
 # environment
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_16648_SSWQQUMKGVPVYQWY
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_42020_EDLPQHFAORGEAZMX
 # environment
 FPS_BROWSER_USER_PROFILE_STRING = Default
 # environment
@@ -59,8 +61,7 @@ VSCODE_LOG_STACK = false
 # automatic
 %F = $(notdir $%)
 # environment
-VSCODE_CODE_CACHE_PATH = C:\Users\oussa\AppData\Roaming\Code\CachedData\30d9c6cd9483b2cc586687151bcbcd635f 
-373630
+VSCODE_CODE_CACHE_PATH = C:\Users\oussa\AppData\Roaming\Code\CachedData\30d9c6cd9483b2cc586687151bcbcd635f373630
 # environment
 LANG = C
 # default
@@ -78,7 +79,7 @@ CURDIR := c:/Users/oussa/Desktop/Home Folder/UQAM_�T�_2022/INF3135/TPs/TP2_V
 # environment
 VSCODE_PIPE_LOGGING = true
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # automatic
 *D = $(patsubst %/,%,$(patsubst %\,%,$(dir $*)))
 # environment
@@ -98,7 +99,7 @@ MAKEFILE_LIST := Makefile
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_PID = 16648
+VSCODE_PID = 42020
 # environment
 CLION = C:\Program Files\JetBrains\CLion 2022.1.1\bin;
 # automatic
@@ -163,7 +164,7 @@ ORIGINAL_XDG_CURRENT_DESKTOP = undefined
 OBJECTS = TP2main.o ListeChainee.o
 # environment
 USERDOMAIN = LAPTOP-LMSNJ150
-# 'override' directive
+# environment
 GNUMAKEFLAGS := 
 # makefile (from 'Makefile', line 2)
 INCDIRS = -I.
@@ -172,7 +173,7 @@ OS = Windows_NT
 # makefile (from 'Makefile', line 3)
 OPT = -O0
 # makefile
-.DEFAULT_GOAL := all
+.DEFAULT_GOAL := run
 # default
 MAKE_VERSION := 4.3
 # environment
@@ -222,7 +223,7 @@ CC = gcc
 # environment
 PROCESSOR_IDENTIFIER = AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD
 # variable set hash-table stats:
-# Load=105/1024=10%, Rehash=0, Collisions=22/142=15%
+# Load=105/1024=10%, Rehash=0, Collisions=18/117=15%
 
 # Pattern-specific Variable Values
 
@@ -230,42 +231,27 @@ PROCESSOR_IDENTIFIER = AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD
 
 # Directories
 
-# . (key c:/Users/oussa/Desktop/Home Folder/UQAM_�T�_2022/INF3135/TPs/TP2_Vs/OCCURRENCE_DE_MOT, mtime 1656628697): 16 files, no impossibilities.
+# . (key c:/Users/oussa/Desktop/Home Folder/UQAM_�T�_2022/INF3135/TPs/TP2_Vs/OCCURRENCE_DE_MOT, mtime 1656902594): 16 files, no impossibilities.
 
 # 16 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
-%.o: %.c
-#  recipe to execute (from 'Makefile', line 18):
-		$(CC) $(CFLAGS) -c -o $@ $^
+# No implicit rules.
 
-# 1 implicit rules, 0 (0.0%) terminal.
 # Files
 
 # Not a target:
 Makefile:
-#  Implicit rule search has been done.
-#  Last modified 2022-06-30 18:38:17
-#  File has been updated.
-#  Successfully updated.
-
-clean:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 21):
-		rm -rf $(BINARY) $(OBJECTS)
 
-tp2: TP2main.o ListeChainee.o
+# Not a target:
+tp2:
 #  Implicit rule search has not been done.
-#  File does not exist.
-#  File has been updated.
-#  Needs to be updated (-q is set).
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/7=0%
-#  recipe to execute (from 'Makefile', line 14):
-		$(CC) -o $@ $^
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
 .DEFAULT:
@@ -273,69 +259,37 @@ tp2: TP2main.o ListeChainee.o
 #  Modification time never checked.
 #  File has not been updated.
 
-all: tp2
+# Not a target:
+all:
 #  Command line target.
-#  Implicit rule search has been done.
-#  File does not exist.
-#  File has been updated.
-#  Needs to be updated (-q is set).
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/7=0%
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
-# Not a target:
-TP2main.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-06-30 18:38:17
-#  File has been updated.
-#  Successfully updated.
+run: tp2
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
-TP2main.o: TP2main.c
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'TP2main'
-#  File does not exist.
-#  File has been updated.
-#  Needs to be updated (-q is set).
-# automatic
-# @ := TP2main.o
-# automatic
-# * := TP2main
-# automatic
-# < := TP2main.c
-# automatic
-# + := TP2main.c
-# automatic
-# % := 
-# automatic
-# ^ := TP2main.c
-# automatic
-# ? := TP2main.c
-# automatic
-# | := 
-# variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=2/17=12%
-#  recipe to execute (from 'Makefile', line 18):
-		$(CC) $(CFLAGS) -c -o $@ $^
-
-# Not a target:
-ListeChainee.o:
+.PHONY: run
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
 # files hash-table stats:
-# Load=9/1024=1%, Rehash=0, Collisions=0/27=0%
+# Load=7/1024=1%, Rehash=0, Collisions=0/11=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 26 / storage = 242 B / avg = 9 B
-# current buf: size = 8162 B / used = 242 B / count = 26 / avg = 9 B
+# strcache buffers: 1 (0) / strings = 22 / storage = 206 B / avg = 9 B
+# current buf: size = 8162 B / used = 206 B / count = 22 / avg = 9 B
 
-# strcache performance: lookups = 37 / hit rate = 29%
+# strcache performance: lookups = 29 / hit rate = 24%
 # hash-table stats:
-# Load=26/8192=0%, Rehash=0, Collisions=0/37=0%
-# Finished Make data base on Thu Jun 30 18:38:46 2022
+# Load=22/8192=0%, Rehash=0, Collisions=0/29=0%
+# Finished Make data base on Mon Jul 04 10:38:12 2022
 
  
