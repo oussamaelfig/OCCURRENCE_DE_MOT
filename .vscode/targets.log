@@ -6,12 +6,10 @@ make.exe all --print-data-base --no-builtin-variables --no-builtin-rules --quest
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Jul 04 10:52:30 2022
+# Make data base, printed on Tue Jul 05 23:55:29 2022
 
 # Variables
 
-# environment
-FPS_BROWSER_APP_PROFILE_STRING = Internet Explorer
 # environment
 SYSTEMDRIVE = C:
 # environment
@@ -25,7 +23,7 @@ VBOX_MSI_INSTALL_PATH = C:\Program Files\Oracle\VirtualBox\
 # environment
 LOCALAPPDATA = C:\Users\oussa\AppData\Local
 # environment
-VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-65164271-3f83-4bcc-a903-294cecd8c4ec-sock
+VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-3dda6a72-9a58-4594-8229-77a7a731e957-sock
 # makefile (from 'Makefile', line 6)
 CFILES = TP2main.c ListeChainee.c
 # environment
@@ -41,15 +39,13 @@ MAKE_COMMAND := make.exe
 # automatic
 @D = $(patsubst %/,%,$(patsubst %\,%,$(dir $@)))
 # environment
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_42020_EDLPQHFAORGEAZMX
-# environment
-FPS_BROWSER_USER_PROFILE_STRING = Default
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_71404_OHSNNZKHQNUAVCLY
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
-# default
-.VARIABLES := 
 # makefile (from 'Makefile', line 9)
 BINARY = tp2
+# default
+.VARIABLES := 
 # automatic
 %D = $(patsubst %/,%,$(patsubst %\,%,$(dir $%)))
 # automatic
@@ -59,8 +55,7 @@ VSCODE_LOG_STACK = false
 # automatic
 %F = $(notdir $%)
 # environment
-VSCODE_CODE_CACHE_PATH = C:\Users\oussa\AppData\Roaming\Code\CachedData\30d9c6cd9483b2cc586687151bcbcd635f 
-373630
+VSCODE_CODE_CACHE_PATH = C:\Users\oussa\AppData\Roaming\Code\CachedData\30d9c6cd9483b2cc586687151bcbcd635f373630
 # environment
 LANG = C
 # default
@@ -68,7 +63,8 @@ LANG = C
 # environment
 TMP = C:\Users\oussa\AppData\Local\Temp
 # default
-.INCLUDE_DIRS = .
+.INCL 
+UDE_DIRS = .
 # makefile
 MAKEFLAGS = pqrR
 # environment
@@ -98,7 +94,7 @@ MAKEFILE_LIST := Makefile
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_PID = 42020
+VSCODE_PID = 71404
 # environment
 CLION = C:\Program Files\JetBrains\CLion 2022.1.1\bin;
 # automatic
@@ -132,7 +128,7 @@ MAKELEVEL := 0
 # default
 MAKE = $(MAKE_COMMAND)
 # environment
-PATH = C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files\Eclipse Adoptium\jdk-17.0.3.7-hotspot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Git\cmd;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Users\oussa\AppData\Local\Microsoft\WindowsApps;C:\Users\oussa\AppData\Local\Programs\Microsoft VS Code\bin;C:\ghcup\bin;C:\MinGW\bin;C:\Program Files\JetBrains\CLion 2022.1.1\bin;;C:\Program Files (x86)\Dr. Memory\bin\;C:\Program Files (x86)\Java\jre1.8.0_333\bin\java.exe;
+PATH = C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files\Eclipse Adoptium\jdk-17.0.3.7-hotspot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Git\cmd;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Users\oussa\AppData\Local\Microsoft\WindowsApps;C:\Users\oussa\AppData\Local\Programs\Microsoft VS Code\bin;C:\ghcup\bin;C:\MinGW\bin;C:\Program Files\JetBrains\CLion 2022.1.1\bin;;C:\Program Files (x86)\Dr. Memory\bin\;C:\Program Files (x86)\Java\jre1.8.0_333\bin\java.exe;C:\Program Files\swipl\bin\;
 # environment
 COMPUTERNAME = LAPTOP-LMSNJ150
 # default
@@ -222,7 +218,7 @@ CC = gcc
 # environment
 PROCESSOR_IDENTIFIER = AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD
 # variable set hash-table stats:
-# Load=105/1024=10%, Rehash=0, Collisions=22/142=15%
+# Load=103/1024=10%, Rehash=0, Collisions=15/140=11%
 
 # Pattern-specific Variable Values
 
@@ -237,7 +233,7 @@ PROCESSOR_IDENTIFIER = AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD
 # Implicit Rules
 
 %.o: %.c
-#  recipe to execute (from 'Makefile', line 22):
+#  recipe to execute (from 'Makefile', line 18):
 		$(CC) $(CFLAGS) -c -o $@ $^
 
 # 1 implicit rules, 0 (0.0%) terminal.
@@ -246,7 +242,7 @@ PROCESSOR_IDENTIFIER = AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-04 10:46:17
+#  Last modified 2022-07-05 09:25:59
 #  File has been updated.
 #  Successfully updated.
 
@@ -254,7 +250,7 @@ clean:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 25):
+#  recipe to execute (from 'Makefile', line 21):
 		rm -rf $(BINARY) $(OBJECTS)
 
 tp2: TP2main.o ListeChainee.o
@@ -264,7 +260,7 @@ tp2: TP2main.o ListeChainee.o
 #  Needs to be updated (-q is set).
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/7=0%
-#  recipe to execute (from 'Makefile', line 18):
+#  recipe to execute (from 'Makefile', line 14):
 		$(CC) -o $@ $^
 
 # Not a target:
@@ -285,7 +281,7 @@ all: tp2
 # Not a target:
 TP2main.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-03 22:43:14
+#  Last modified 2022-07-05 11:24:52
 #  File has been updated.
 #  Successfully updated.
 
@@ -313,7 +309,7 @@ TP2main.o: TP2main.c
 # | := 
 # variable set hash-table stats:
 # Load=8/32=25%, Rehash=0, Collisions=2/17=12%
-#  recipe to execute (from 'Makefile', line 22):
+#  recipe to execute (from 'Makefile', line 18):
 		$(CC) $(CFLAGS) -c -o $@ $^
 
 # Not a target:
@@ -336,6 +332,6 @@ ListeChainee.o:
 # strcache performance: lookups = 35 / hit rate = 31%
 # hash-table stats:
 # Load=24/8192=0%, Rehash=0, Collisions=0/35=0%
-# Finished Make data base on Mon Jul 04 10:52:30 2022
+# Finished Make data base on Tue Jul 05 23:55:29 2022
 
  

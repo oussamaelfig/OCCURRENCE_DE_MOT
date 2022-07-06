@@ -1,9 +1,7 @@
-make.exe --dry-run --keep-going --print-directory
+make.exe --dry-run --always-make --keep-going --print-directory
 make: Entering directory 'c:/Users/oussa/Desktop/Home Folder/UQAM_�T�_2022/INF3135/TPs/TP2_Vs/OCCURRENCE_DE_MOT'
 gcc -Wall -Wextra -g -I. -O0 -c -o TP2main.o TP2main.c
- 
 gcc -Wall -Wextra -g -I. -O0 -c -o ListeChainee.o ListeChainee.c
 gcc -o tp2 TP2main.o ListeChainee.o
- 
 make: Leaving directory 'c:/Users/oussa/Desktop/Home Folder/UQAM_�T�_2022/INF3135/TPs/TP2_Vs/OCCURRENCE_DE_MOT'
  
