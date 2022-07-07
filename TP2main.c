@@ -1,16 +1,16 @@
 /*
  * TP2 INF3135 : OCCURRENCE DE MOT
- * Author: OUSSAMA EL-FIGHA
- * Author: NICOLAS PLANTE
+ * Auteur: OUSSAMA EL-FIGHA
+ * Code permanent: 
+ * Auteur: NICOLAS PLANTE
+ * Code permanent: PLAN83020108  
  */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
 #include <stdbool.h>
 #include "ListeChainee.h"
-#define DEBUG
 
 /**
  * Fonction qui verfie si le char est une lettre de l'alphabet anglais.
@@ -64,7 +64,6 @@ int charEstValide(char c)
     }
     else
     {
-        // printf("%c\n", c);
         fprintf(stderr, "Le fichier contient autre chose que des mots valides séparés par des blancs\n");
         exit(-1);
     }
@@ -222,7 +221,6 @@ int compterNbrOccur(char *textEntree, const char *mot_a_trouver)
                                                   !((unsigned char)p[-1] >= 97 && (unsigned char)p[-1] <= 122))))
         {
             // on skip le mot trouvé puis on passe au caractere venat juste après
-            // while()().while()\n while  while ==> ()().while()\n while  while
             p += strlen(mot_a_trouver);
 
             // Si le caractere n'est pas alphapetic
@@ -248,12 +246,12 @@ char *substring(char *destination, const char *source, int debut, int n)
     // `debut` index dans la destination
     strncpy(destination, (source + debut), n);
 
-    // return tla chaine destination
+    // return la chaine destination
     return destination;
 }
 
 // Fonction pour trouver les postion de l'accolade fermantes
-//Étant donné la position d'une parenthèse ouverte
+// Étant donné la position d'une parenthèse ouverte
 //  dans un tableau de caractères, l'algorithme
 //  utilise un compteur pour trouver
 //  l'accolade fermante correspondante.
@@ -263,7 +261,6 @@ int trouverAccoFerm(const char *textEntree, int accoOuvrante, int *cpt)
     int compteur = 1;
     while (compteur > 0 && accoFermante <= strlen(textEntree))
     {
-        // printf("compteur accolade: %i\n", Compteur);
         char c = textEntree[++accoFermante];
         if (c == '{')
         {
@@ -289,14 +286,10 @@ char *parentheseCorresp(char *textEntree, int *cpt)
     int derniereAccol;
     int len;
     const char *p = textEntree;
-    //   printf("Le texte que finMatching recoit est: %s\n", p);
     // Le caractere qu'on veut trouver
     char key[] = "{";
     // Trouver la position de la premiere accolade avec la methode strcspn
     premiereAccol = strcspn(p, key);
-
-    //*cpt += premiereAccol;
-    // printf("The first number in str is at position %d.\n", premiereAccol); //DEBUG
     derniereAccol = trouverAccoFerm(p, premiereAccol, cpt);
     // La taille de la chaine à extraire est :
     len = derniereAccol - premiereAccol;
@@ -307,63 +300,56 @@ char *parentheseCorresp(char *textEntree, int *cpt)
     return destination;
 }
 
-/*
- * Methode qui permet d'enlever les commentaires
- * et entre '...' et "..."
+/**
+* Methode qui permet d'enlever les commentaires
+ * et entre les accolades '...' et "..."
+ * 
+ * @param code 
+ * @return char* sortie qui est la chaine passee en argument modifiee.
  */
-char *supprimerComments(char *code)
-{
-    char *output = malloc(sizeof(char) * strlen(code));
+char *supprimerComments(char *code) {
+    char *sortie = malloc(sizeof(char) * strlen(code));
     int index = 0;
     int i = 0;
-    // store removed comment code in output
-    while (code[i] != '\0')
-    {
-        // Pour supprimer une ligne de commentaire
-        if (code[i] == '/' && code[i + 1] == '/')
-        {
-            while (code[i] != '\n')
-            {
+    while (code[i] != '\0') {
+        if (code[i] == '/' && code[i + 1] == '/') {     
+            while (code[i] != '\n') {
                 i++;
+
             }
-            // Pour supprimer multiples lignes de comments
-        }
-        else if (code[i] == '/' && code[i + 1] == '*')
-        {
+        } else if (code[i] == '/' && code[i + 1] == '*') {  
             i = i + 2;
-            while (code[i] != '*' && code[i + 1] != '/')
-            {
+            while (code[i] != '*' && code[i + 1] != '/') {
                 i++;
             }
             i = i + 3;
-        }
-        else if (code[i] == '"')
-        {
-            i++;
-            while (code[i] != '"')
-            {
-                i++;
+        } else if (code[i] == '"') {
+            sortie[index++] = code[i++];
+            while (code[i] != '"') {
+                if (code[i] == '{' || code[i] == '}') {
+                    i++;
+                } else {
+                    sortie[index++] = code[i++];
+                }
             }
-            i = i + 1;
-        }
-        else if (code[i] == '\'')
-        {
-            i++;
-            while (code[i] != '\'')
-            {
-                i++;
+            sortie[index++] = code[i++];
+
+        } else if (code[i] == '\'') {
+            sortie[index++] = code[i++];
+            while (code[i] != '\'') {
+                if (code[i] == '{' || code[i] == '}') {
+                    i++;
+                } else {
+                    sortie[index++] = code[i++];
+                }
             }
-            i = i + 1;
-        }
-        else
-        {
-            // stocker le reste dans un tableau
-            output[index++] = code[i++];
+            sortie[index++] = code[i++];
+        } else {           
+            sortie[index++] = code[i++];
         }
     }
-    output[index] = '\0';
-
-    return output;
+    sortie[index] = '\0';
+    return sortie;
 }
 
 /**
@@ -468,8 +454,9 @@ int *calculerTotal(char *textEntree, char *tabMots[], int tailleTabMots)
     return r;
 }
 
-// ****************************************************************************************************************************
-// ****************************************************************************************************************************
+// ********************************************
+// *                 MAIN                     *
+// ********************************************
 
 int main(int argc, char const *argv[])
 {
@@ -488,6 +475,7 @@ int main(int argc, char const *argv[])
     // Ouverture du fichier en mode lecture
     FILE *file = fopen(argv[1], "r");
 
+    //Echec d'ouverture du fichier -> fin du programme + msg d'erreur
     if (file == NULL)
     {
         fprintf(stderr, "Le fichier n’est pas accessible.\n");
@@ -505,14 +493,19 @@ int main(int argc, char const *argv[])
         }
         ++i;
     } while (!estEOF && i < longBuffer - 1);
+
+    //dernier char est nul
     buffer[i] = 0;
     char *tabMots[longBuffer];
 
+    //Trouver la taille du tableau de mot (combien de vrai mot il contient)
     tailleTabMots = analyserMots(buffer, tabMots, 0);
 
-    // detruireChaine(tabMots, longBuffer);
+    //desallocation du buffer
     free(buffer);
     buffer = NULL;
+
+    //fermeture du fichier de mot
     fclose(file);
 
     textEntree = insererChaine(stdin, 10);
@@ -530,10 +523,8 @@ int main(int argc, char const *argv[])
     // afficher les occurences totales
     afficherOcTotales(tabMots, occurencesTotales, tailleTabMots);
 
-    // char *v = parentheseCorresp(textEntree);
-    // printf("la chaine retounrnée est : %s", v);
-    // free(v);
     //*******************************************************************
+    //*                 LIBERATION DE LA MEMOIRE                        *
     //*******************************************************************
 
     for (int i = 0; i < tailleTabMots; i++)
@@ -541,7 +532,6 @@ int main(int argc, char const *argv[])
         free(tabMots[i]);
         tabMots[i] = NULL;
     }
-
     free(listeChaine);
     free(textEntree);
     free(occurencesTotales);
