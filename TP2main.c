@@ -51,6 +51,9 @@ int estEspaceBlanc(char c)
  * Fonction qui verfie si le char est valide ou pas.
  * valide (lettre, '_', chiffres ou blanc )
  *
+ * Erreur: si le fichier contient des chars interdits (pas lettre, nb, _ ou blancs), Programme se termine + msg err
+ * 
+ * 
  * @param c
  * @return int estValide (1 si le char est valide sinon 0)
  */
@@ -74,6 +77,9 @@ int charEstValide(char c)
  * analyse so le fichier contient des mot valide et stock ces mots dans un tableau
  * de mot.
  * Si un char non valide est detecte, le programme se termine.
+ * 
+ * Erreur: si le fichier contient des chars interdits (pas lettre, nb, _ ou blancs), Programme se termine + msg err
+ * 
  *
  * @param buffer
  * @param tM
@@ -119,6 +125,8 @@ int analyserMots(char *buffer, char *tM[], int indice)
  * Procedure qui verifie si le bon nombre d'arguments est entre.
  * Si ce n'est pas le cas, le programme se termine.
  *
+ * Erreur: si le nombre d'argument n'est pas 2 (nom exec + fichier), Programme se termine + msg err
+ * 
  * @param argc
  */
 void verifierArgument(int argc)
